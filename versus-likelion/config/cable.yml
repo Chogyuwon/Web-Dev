@@ -1,0 +1,10 @@
+development:
+  adapter: async
+
+test:
+  adapter: async
+
+production:
+  adapter: redis
+  url: redis://redistogo:274f897d45d7f4f2597b073698d5e7ab@koi.redistogo.com:11723/
+  # channel_prefix: kakao-test_production

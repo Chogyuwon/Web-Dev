@@ -1,0 +1,234 @@
+<%= render "nav" %>
+  <head>
+        <script>
+        function inputLengthCheck(eventInput){
+    var inputText = $(eventInput).val();
+    var inputMaxLength = $(eventInput).prop("maxlength");
+    var j = 0;
+    var count = 0;
+    for(var i = 0;i < inputText.length;i++) { 
+      val = escape(inputText.charAt(i)).length; 
+      if(val == 6){
+        j++;
+      }
+      
+      j++;
+      
+      if(j <= inputMaxLength){
+        count++;
+      }
+    }
+
+  if(j > inputMaxLength){
+  $(eventInput).val(inputText.substr(0, count));
+  }
+}
+
+        function empty() {
+        var input_age;
+        input_age = document.getElementById("userage").value;
+        if (input_age == "") {
+          alert("나이를 입력해주세요.");
+          return false;
+        };
+        var input_nickname;
+        input_nickname  = document.getElementById("nickname").value;
+        if (input_nickname == "") {
+          alert("닉네임을 입력해 주세요.");
+          return false;
+        };
+      }
+        </script>
+        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>상세정보 입력</title>
+        <link rel="stylesheet" href="css/normalize.css">
+        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+    <div class = "ONAIR">
+            </br></br></br></br></br></br>
+            <center><h2>추가 상세정보 입력</h2></center>
+    </div>  
+    
+    <header class="sign_up_logo"><a href="/"><img src="/images/MainLogo3.png" alt="" style="height:40px;" class="logo"></a></header>
+    <div class="sign_up_container">
+        <div class="sign_up_Box">
+            <div class="sign_up">
+                <form action="/success/<%=current_user.id%>" method="post" enctype="multipart/form-data" authenticity_token="true">
+                    
+                      <label>이메일:</label>
+                      <input type="email" id="email" name="email">
+                      
+                      <label><strong>(필수 *10자이내)</strong> 닉네임:</label>
+                      <input type="text" id="nickname" maxlength="20" onblur="inputLengthCheck(this);" name="nickname">
+                      
+                      <label><strong>(필수)</strong> 나이:</label>
+                      <input type="number" id="userage" name="userage" value="20">
+                      
+                      <label><strong>(필수)</strong> 성별:</label>
+                          <input type="radio" value="male" name="usergender" checked><label class="light">남자</label><br>
+                          <input type="radio" value="female" name="usergender"><label class="light">여자</label>
+                    <br>
+                    <label>지역:</label>
+                    <select name="area">
+                    <option value="">선택없음</option>
+                    <option value="서울">서울</option>
+                    <option value="인천">인천</option>
+                    <option value="부산">부산</option>
+                    <option value="대구">대구</option>
+                    <option value="대전">대전</option>
+                    <option value="울산">울산</option>
+                    <option value="광주">광주</option>
+                    <option value="경기도">경기도</option>
+                    <option value="강원도">강원도</option>
+                    <option value="충청북도">충청북도</option>
+                    <option value="충청남도">충청남도</option>
+                    <option value="경상북도">경상북도</option>
+                    <option value="경상남도">경상남도</option>
+                    <option value="전라북도">전라북도</option>
+                    <option value="전라남도">전라남도</option>
+                    <option value="제주도">제주도</option>
+                </select>
+                <button type="submit" onclick="return empty();">완료</button>
+                    <!--<div><a href="/success/<%=current_user.id%>">
+                              <button type="submit" onclick="return empty();" class="btn-sign-up">OKAY</button></a><br>-->
+
+                               <!--<input type="submit" onclick="return empty();" value="OKAY"/>-->
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!--<%= current_user %>
+<% if current_user.present? %>
+<p><%= current_user.name %></p>
+<p><%= current_user.uid %></p>
+<a href="logout">로그아웃</a>-->
+<% end %>
+    </body>
+
+<style>
+
+
+    *, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  color: #384047;
+}
+
+form {
+  max-width: 300px;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background: #f4f7f8;
+  border-radius: 8px;
+}
+
+h1 {
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+textarea,
+select {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  font-size: 16px;
+  height: auto;
+  margin: 0;
+  outline: 0;
+  padding: 15px;
+  width: 100%;
+  background-color: #e8eeef;
+  color: #8a97a0;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  margin-bottom: 30px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  margin: 0 4px 8px 0;
+}
+
+select {
+  padding: 6px;
+  height: 32px;
+  border-radius: 2px;
+}
+
+button {
+  padding: 19px 39px 18px 39px;
+  color: #FFF;
+  background-color: #4270e4;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  border-radius: 5px;
+  width: 100%;
+  border: 1px solid #4270e4;
+  border-width: 1px 1px 3px;
+  box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+  margin-bottom: 10px;
+}
+
+fieldset {
+  margin-bottom: 30px;
+  border: none;
+}
+
+legend {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+label.light {
+  font-weight: 300;
+  display: inline;
+}
+
+.number {
+  background-color: #5fcf80;
+  color: #fff;
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  font-size: 0.8em;
+  margin-right: 4px;
+  line-height: 30px;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+  border-radius: 100%;
+}
+
+@media screen and (min-width: 480px) {
+
+  form {
+    max-width: 480px;
+  }
+
+}
+</style>
+

@@ -1,0 +1,414 @@
+<style>
+    a {
+        text-decoration: none !important;
+        color:black;
+    }
+</style>
+
+<%= render "nav" %>
+
+<div class="ONAIR" id="web-onair">
+    <%= render "speaker" %>
+</div>
+<div class="ONAIR mobile" id="mobile-onair">
+    <%= render "speaker-mobile" %>
+</div>
+<br><br>
+<div class="container">
+<div class="Mask-container" style="margin-bottom:50px;">
+        <%= render 'input_category' %>
+    	<div class="Mask-wrapper" id="users">
+    	    <br><br>
+    	    <input type="text" style="display:block; margin:0 auto; text-align:center; height:37px;" class="search" placeholder="검색 키워드 입력" />
+    	    <span class="glyphicon glyphicon-search" id="search-icon"></span>
+    	    <br>
+    	    <p style="text-align:right; margin-bottom:-28px; margin-left:13px;"><a class="NAVREC" href="/posts/new">새글 쓰기</a></p>
+			<div class="radio-wrapper" style="display:none;">
+				<div class="radio-inline">
+					<label>
+						<input class="filter-all" type="radio" value="all" name="gender" id="CATEGORY-1" checked /> All
+					</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input class="filter" type="radio" value="category-2" name="gender" id="CATEGORY-2" /> 패션
+					</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input class="filter" type="radio" value="category-3" name="gender" id="CATEGORY-3" /> 연애
+					</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input class="filter" type="radio" value="category-4" name="gender" id="CATEGORY-4" /> 제품
+					</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input class="filter" type="radio" value="category-5" name="gender" id="CATEGORY-5" /> 맛집
+					</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input class="filter" type="radio" value="category-6" name="gender" id="CATEGORY-6" /> 게임
+					</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input class="filter" type="radio" value="category-7" name="gender" id="CATEGORY-7" /> 학업/진로
+					</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input class="filter" type="radio" value="category-8" name="gender" id="CATEGORY-8" /> 스포츠
+					</label>
+				</div>
+
+            </div>
+			<br>
+<hr>
+    <div class="no-result">해당 글이 없습니다.</div>
+    
+	<ul class="list" style="padding-left:0;">
+	<% @color_list = ["#FC6E51", "#ED5565", "#5D9CEC","#FFCE54", "#AC92EC", "#A0D468", "#48CFAD"] %>
+    <% @posts.each do |item| %>
+        <% @post_category = item.category.gsub("category-","").to_i %>
+        <% if item.post_type == "vs" %>
+        <li class="list-item" data-gender="<%= item.category %>">
+        	<a href="/posts/<%=item.id %>">
+            <div class="Mask">
+                <div class="card-background" style="background-color:<%=@color_list[@post_category-2] %>">
+                    <p class="first_choice"><strong><%= item.first_choice_label %></strong></p>
+                    <p style="font-size:30px;">VS</p>
+                    <p class="second_choice"><strong><%= item.second_choice_label %></strong></p>
+                </div>
+                <p class="title_name" style="margin-left:17px; margin-top:15px; font-size:20px;">
+                    <span style="display:inline-block; width:235px;text-overflow:ellipsis; overflow:hidden;"><%= item.title %></span>
+                <span style="font-size:10px; float:right; margin-right: 10px; margin-top: -6px; color: #9B9B9B;"><%= item.created_at.strftime("%b %d.") %></span>
+                </p>
+                
+                <p style="margin-left:17px; margin-top:37px; text-align:right;">
+                    <strong style="float:left; font-weight: 700; border-bottom: 0;"><%= item.user.nickname %></strong>
+                    <span class="glyphicon glyphicon-ok" style="font-size: 16px;"></span>
+                    <% @total_choice_count = Vote.where(:post_id => item.id).count %>
+                    <% if @total_choice_count == 0 %>
+                        <span style="vertical-align:text-bottom;">0</span>
+                    <% else %>
+                        <span style="vertical-align:text-bottom;"><%= @total_choice_count %></span>
+                    <% end %>
+                    <span class="glyphicon glyphicon-comment" style="margin-left:10px;"></span>
+                    <span style="vertical-align:text-bottom; margin-right:10px;">
+                    <% @total_comment_count = Comment.where(:post_id => item.id).count %>
+                    <% if @total_comment_count == 0 %>
+                        <span style="vertical-align:text-bottom;">0</span>
+                    <% else %>
+                        <span style="vertical-align:text-bottom;"><%= @total_comment_count %></span>
+                    <% end %>
+                    </span>
+                </p>
+            </div>
+            </a>
+        </li>
+        <% else %>
+	        <li class="list-item" data-gender="<%= item.category %>">
+                <a href="/posts/<%=item.id %>">
+                <div class="Mask">
+                    <div class="card-background" style="background-color:<%=@color_list[@post_category-2] %>">
+                        <p style="font-size:30px;font-weight:900;"><%= item.title %></p>
+                    </div>
+                    <p class="title_name" style="margin-left:17px; margin-top:15px; font-size:20px; padding-bottom:7px;">
+                        <span style="display:inline-block; width:235px;"><%= item.title %></span>
+                    <span style="font-size:10px; float:right; margin-right: 10px; margin-top: -6px; color: #9B9B9B;"><%= item.created_at.strftime("%b %d.") %></span>
+                    </p>
+                    
+                    <p style="margin-left:17px; margin-top:37px; text-align:right;">
+                        <strong style="float:left; font-weight:700px;border-bottom: 0;"><%= item.user.nickname %></strong>
+                        <span class="glyphicon glyphicon-comment" style="margin-left:10px;"></span>
+                        <span style="vertical-align:text-bottom; margin-right:10px;">
+                            <% @total_comment_count = Comment.where(:post_id => item.id).count %>
+                                <% if @total_comment_count == 0 %>
+                                    <span style="vertical-align:text-bottom;">0</span>
+                                <% else %>
+                                    <span style="vertical-align:text-bottom;"><%= @total_comment_count %></span>
+                                <% end %>
+                        </span>
+                    </p>
+                </div>
+                </a>
+            </li>
+        <% end %>
+    <% end %>
+    </ul>
+    <div class="text-center">
+        <ul class="pagination"></ul>
+    </div>
+    </div>
+    </div>
+</div>
+</div>
+<hr>
+<style>
+    .ONAIR.mobile{
+        display:none;
+    }
+    /*pagination 색깔*/
+    .pagination>.active>a{
+        background-color:#4270e4;
+        border-color:#4270e4;
+    }
+    .pagination>li>a{
+        color:black;
+    }
+    #search-icon{
+        float:right;
+        margin-top:-28px;
+        margin-right:355px;
+        position: relative;
+        z-index:2;
+    }
+</style>
+
+<script>
+var input_id;
+
+$("#category-1").click(function () {
+    input_id = $("#CATEGORY-1").val();
+    $("#category-1").addClass("active");
+    $("#category-2").removeClass("active");
+    $("#category-3").removeClass("active");
+    $("#category-4").removeClass("active");    
+    $("#category-5").removeClass("active");
+    $("#category-6").removeClass("active");
+    $("#category-7").removeClass("active");
+    $("#category-8").removeClass("active");
+    $("#CATEGORY-1").prop("checked", true);
+    $("#CATEGORY-2").prop("checked", false);
+    $("#CATEGORY-3").prop("checked", false);
+    $("#CATEGORY-4").prop("checked", false);
+    $("#CATEGORY-5").prop("checked", false);
+    $("#CATEGORY-6").prop("checked", false);
+    $("#CATEGORY-7").prop("checked", false);
+    $("#CATEGORY-8").prop("checked", false);
+    
+});
+$("#category-2").click(function () {
+    input_id = $("#CATEGORY-2").val();
+    $("#category-2").addClass("active");
+    $("#category-1").removeClass("active");
+    $("#category-3").removeClass("active");
+    $("#category-4").removeClass("active");    
+    $("#category-5").removeClass("active");
+    $("#category-6").removeClass("active");
+    $("#category-7").removeClass("active");
+    $("#category-8").removeClass("active");
+
+    $("#CATEGORY-2").prop("checked", true);
+    $("#CATEGORY-1").prop("checked", false);
+    $("#CATEGORY-3").prop("checked", false);
+    $("#CATEGORY-4").prop("checked", false);
+    $("#CATEGORY-5").prop("checked", false);
+    $("#CATEGORY-6").prop("checked", false);
+    $("#CATEGORY-7").prop("checked", false);
+    $("#CATEGORY-8").prop("checked", false);
+
+});
+$("#category-3").click(function () {
+    input_id = $("#CATEGORY-3").val();
+    $("#category-3").addClass("active");
+    $("#category-1").removeClass("active");
+    $("#category-2").removeClass("active");
+    $("#category-4").removeClass("active");    
+    $("#category-5").removeClass("active");
+    $("#category-6").removeClass("active");
+    $("#category-7").removeClass("active");
+    $("#category-8").removeClass("active");
+
+    $("#CATEGORY-3").prop("checked", true); 
+    $("#CATEGORY-1").prop("checked", false);
+    $("#CATEGORY-2").prop("checked", false);
+    $("#CATEGORY-4").prop("checked", false);
+    $("#CATEGORY-5").prop("checked", false);
+    $("#CATEGORY-6").prop("checked", false);
+    $("#CATEGORY-7").prop("checked", false);
+    $("#CATEGORY-8").prop("checked", false);
+
+});
+$("#category-4").click(function () {
+    input_id = $("#CATEGORY-4").val();
+    $("#category-4").addClass("active");
+    $("#category-1").removeClass("active");
+    $("#category-2").removeClass("active");
+    $("#category-3").removeClass("active");    
+    $("#category-5").removeClass("active");
+    $("#category-6").removeClass("active");
+    $("#category-7").removeClass("active");
+    $("#category-8").removeClass("active");
+
+    $("#CATEGORY-4").prop("checked", true); 
+    $("#CATEGORY-1").prop("checked", false);
+    $("#CATEGORY-2").prop("checked", false);
+    $("#CATEGORY-3").prop("checked", false);
+    $("#CATEGORY-5").prop("checked", false);
+    $("#CATEGORY-6").prop("checked", false);
+    $("#CATEGORY-7").prop("checked", false);
+    $("#CATEGORY-8").prop("checked", false);
+
+});
+$("#category-5").click(function () {
+    input_id = $("#CATEGORY-5").val();
+    $("#category-5").addClass("active");
+    $("#category-1").removeClass("active");
+    $("#category-2").removeClass("active");
+    $("#category-3").removeClass("active");    
+    $("#category-4").removeClass("active");
+    $("#category-6").removeClass("active");
+    $("#category-7").removeClass("active");
+    $("#category-8").removeClass("active");
+
+    $("#CATEGORY-5").prop("checked", true); 
+    $("#CATEGORY-1").prop("checked", false);
+    $("#CATEGORY-2").prop("checked", false);
+    $("#CATEGORY-3").prop("checked", false);
+    $("#CATEGORY-4").prop("checked", false);
+    $("#CATEGORY-6").prop("checked", false);
+    $("#CATEGORY-7").prop("checked", false);
+    $("#CATEGORY-8").prop("checked", false);
+
+});
+$("#category-6").click(function () {
+    input_id = $("#CATEGORY-6").val();
+    $("#category-6").addClass("active");
+    $("#category-1").removeClass("active");
+    $("#category-2").removeClass("active");
+    $("#category-3").removeClass("active");    
+    $("#category-4").removeClass("active");
+    $("#category-5").removeClass("active");
+    $("#category-7").removeClass("active");
+    $("#category-8").removeClass("active");
+
+    $("#CATEGORY-6").prop("checked", true); 
+    $("#CATEGORY-1").prop("checked", false);
+    $("#CATEGORY-2").prop("checked", false);
+    $("#CATEGORY-3").prop("checked", false);
+    $("#CATEGORY-4").prop("checked", false);
+    $("#CATEGORY-5").prop("checked", false);
+    $("#CATEGORY-7").prop("checked", false);
+    $("#CATEGORY-8").prop("checked", false);
+
+});
+$("#category-7").click(function () {
+    input_id = $("#CATEGORY-7").val();
+    $("#category-7").addClass("active");
+    $("#category-1").removeClass("active");
+    $("#category-2").removeClass("active");
+    $("#category-3").removeClass("active");    
+    $("#category-4").removeClass("active");
+    $("#category-5").removeClass("active");
+    $("#category-6").removeClass("active");
+    $("#category-8").removeClass("active");
+
+    $("#CATEGORY-7").prop("checked", true); 
+    $("#CATEGORY-1").prop("checked", false);
+    $("#CATEGORY-2").prop("checked", false);
+    $("#CATEGORY-3").prop("checked", false);
+    $("#CATEGORY-4").prop("checked", false);
+    $("#CATEGORY-5").prop("checked", false);
+    $("#CATEGORY-6").prop("checked", false);
+    $("#CATEGORY-8").prop("checked", false);
+
+});
+$("#category-8").click(function () {
+    input_id = $("#CATEGORY-8").val();
+    $("#category-8").addClass("active");
+    $("#category-1").removeClass("active");
+    $("#category-2").removeClass("active");
+    $("#category-3").removeClass("active");    
+    $("#category-4").removeClass("active");
+    $("#category-5").removeClass("active");
+    $("#category-6").removeClass("active");
+    $("#category-7").removeClass("active");
+
+    $("#CATEGORY-8").prop("checked", true); 
+    $("#CATEGORY-1").prop("checked", false);
+    $("#CATEGORY-2").prop("checked", false);
+    $("#CATEGORY-3").prop("checked", false);
+    $("#CATEGORY-4").prop("checked", false);
+    $("#CATEGORY-5").prop("checked", false);
+    $("#CATEGORY-6").prop("checked", false);
+    $("#CATEGORY-7").prop("checked", false);
+
+});
+
+var options = {
+    valueNames: [
+    	'title_name',
+    	'first_choice',
+    	'second_choice',
+    	{ data: ['gender']}
+    ]
+};
+
+
+var userList = new List('users', options);
+  
+function updateList(){
+  var values_gender = input_id;
+	var values_address = $("input[name=address]:checked").val();
+	console.log(values_gender, values_address);
+
+	userList.filter(function (item) {
+		var genderFilter = false;
+		var addressFilter = false;
+		
+		if(values_gender == "all")
+		{ 
+			genderFilter = true;
+		} else {
+			genderFilter = item.values().gender == values_gender;
+			
+		}
+		if(values_address == null)
+		{ 
+			addressFilter = true;
+		} else {
+			addressFilter = item.values().address.indexOf(values_address) >= 0;
+		}
+		return addressFilter && genderFilter
+	});
+	userList.update();
+	//console.log('Filtered: ' + values_gender);
+}
+                            
+function resetList(){
+	userList.search();
+	userList.filter();
+	userList.update();
+	$(".filter-all").prop('checked', true);
+	$('.filter').prop('checked', false);
+	$('.search').val('');
+	//console.log('Reset Successfully!');
+};
+                               
+$(function(){
+  //updateList();
+  $("#category-1").click(updateList);
+  $("#category-2").click(updateList);
+  $("#category-3").click(updateList);
+  $("#category-4").click(updateList);
+  $("#category-5").click(updateList);
+  $("#category-6").click(updateList);
+  $("#category-7").click(updateList);
+  $("#category-8").click(updateList);
+
+	userList.on('updated', function (list) {
+		if (list.matchingItems.length > 0) {
+			$('.no-result').hide()
+		} else {
+			$('.no-result').show()
+		}
+	});
+});
+
+
+</script>

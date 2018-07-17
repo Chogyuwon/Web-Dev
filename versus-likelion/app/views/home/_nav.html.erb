@@ -1,0 +1,50 @@
+<style>
+    .NAVREC{
+        z-index:2;
+    }
+</style>
+
+
+<nav class="NAVBAR">
+    <div class="nav-element-wrapper">
+        <div class="container">        
+        <a href="/"><h1 style="float:left;"><img style="width:125px; margin-top:-27px;"src="/logo.1.png"></h1></a>
+        <% if current_user.present? %>
+            <a href="/mypage" class="NAVREC">MY PAGE</a>
+            <a href="/logout" class="NAVREC">LOG OUT</a>
+        <% else %>
+            <!-- Trigger the modal with a button -->
+            <a href="#" class="NAVREC" data-toggle="modal" data-target="#myModal" id="login-button">
+                <span class="NAVTEXT">
+                    로그인
+                </span>
+            </a>
+        <% end %>
+        </div>
+    </div>
+</nav>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog-2">
+
+    <!-- Modal content-->
+    <div class="ONAIR-Copy-5">
+        <button type="button" class="close modal_close" data-dismiss="modal">&times;</button>
+        <div class="ONAIR-Copy-6">
+            <h4 class="VERSUS">VERSUS</h4>
+        </div>
+        <div class="ONAIR-Copy-7">
+                <p class="NACREC-kakao">
+                    <img class="Kakao_Corp_wordmark" src="/Kakao_name.png"></img>
+                    <a href="/auth/kakao" class="NAVTEXT-KAKAO" >카카오톡 로그인</a>
+                </p>
+                <p class="NACREC-Copy-facebook">
+                    <img class="facebook_Corp_wordmark" src="/Facebook_name.png"></img>
+                    <a href="/auth/facebook" class="NAVTEXT-FACEBOOK">페이스북 로그인</a>
+                </p>
+            
+        </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,652 @@
+<% content_for :head do %>
+  <meta property="fb:app-id"             content="myid" />
+  <meta property="og:url"                content="<%= request.original_url %>"/>
+  <meta property="og:title"              content="<%= @post.title %>" />
+  <meta property="og:type"               content="article" />
+  <meta property="og:description"        content="<%= @post.content %>" />
+  <meta property="og:image"              content="http://postfiles9.naver.net/MjAxNzA4MTlfMTkw/MDAxNTAzMDg3ODY1NDgy.QFnVYfD5QNNtBPkOwMOEA_vuv6AlgJdO30n4Q4kQIJEg.EgC1useE5xgMW3PSPhsS9oV9abbm2zSa8UpmQcZXGFkg.PNG.alfla0504/KakaoTalk_Photo_2017-08-19-05-24-11.png?type=w966" />
+<% end %>
+
+<input type="hidden" value="<%=@post.id %>" id="hidden-id" %>
+<% if current_user %>
+    <input type="hidden" value="<%=current_user.id %>" id="hidden-user_id" %>
+    <% vote_check = Vote.where(:post_id => @post.id, :user_id => current_user.id).count %>
+    <% if vote_check == 0 %>
+        <input type="hidden" value="" id="hidden-choice-type" >
+    <% else %>
+        <% user_choice = Vote.where(:post_id => @post.id, :user_id => current_user.id).first.vote_choice %>
+        <% if user_choice == "1" %>
+            <input type="hidden" value="1" id="hidden-choice-type" >
+        <% else %>
+            <input type="hidden" value="2" id="hidden-choice-type" >
+        <% end %>
+    <% end %>
+<% else %>
+    <input type="hidden" value="no_id" id="hidden-user_id" %> 
+<% end %>
+<!-- 여기까지 View 에 영향을 안주는 곳입니다. --> 
+<%= render 'home/nav' %>
+<div class="main-box">
+    <div class="post_intro">
+        <p class="post_title"><%= @post.title %></p>
+        <div class="post_info_box">
+            <p class="post_writer_created_at">by. <%= @post.user.name %> · <%= @post.created_at.strftime("%b %d. %Y") %></p>
+            <% if current_user %>
+                <% if current_user.id == @post.user_id %>
+                    <p class="NAVREC" style="margin: 0px 0px 0px 0px!important;"><a href ="/posts/<%= @post.id %>/destroy">삭제</a></p>
+                <% end %>
+            <% end %>
+        </div>
+        <p><%= @post.content.html_safe %></p>
+        
+        <div class="share-box">
+            <!--페이스북 공유하기-->
+            <div id="facebook-link-btn" data-href="<%=request.original_url%>" data-layout="button" data-size="large" data-mobile-iframe="false">
+                <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%=request.original_url%>">
+                    <img src="/facebook_share_button.png" style="width:40px; height:40px"></img>
+                </a>
+            </div>
+            
+            <!--카카오톡 공유하기-->
+            <button type="button" id="kakao-link-btn" class="kakao_share_button">
+                <img src="/kakao_share_button.png" style="width:40px; height:40px; margin-left:8px;"></img>
+            </button>
+        </div>
+        <hr>
+        <% if @post.post_type == "vs" %>
+        <div class="choice_info">
+            <div class="choice_first_box">
+                <div id="first-image-opacity">
+                    <% if @post.image_1.present? %>
+                        <img src="<%= @post.image_1.choice.url %>" id="first_image" alt = "이미지 로딩중"></img>
+                    <% else %>
+                        <img src="/noimage.jpg" id="first_image" style="width:300px; height:300px;" alt></img>    
+                    <% end %>
+                </div>
+                <p class="choice_label_content" id="first-lable-content"><%= @post.first_choice_label %></p>
+                <% if current_user %>
+                    <% vote_check = Vote.where(:post_id => @post.id, :user_id => current_user.id).count %>
+                    <% if vote_check == 0 %>
+                        <button id="choice-1-button" class="vote_button"><img src="/checked.png" class="checked_image"></img></button>
+                    <% else %>
+                    
+                    <% end %>
+                <% else %>            
+                    <button id="choice-2-button" class="vote_button"><img src="/checked.png" class="checked_image"></img></button>
+                <% end %>
+                
+            </div>
+            <div class="choice_second_box">
+                <div class="head_box">
+                    <% if @total_choice_count == 0 %>
+                        <div class="head_box_left">
+                            <span id="choice-1-count" class = "choice_left_num">0<span class="small-font">%</span></span>
+                        </div>
+                        <div class="head_box_right">
+                            <span id="choice-2-count" class = "choice_right_num">0<span class="small-font">%</span></span>
+                        </div>
+                    <% else %>
+                        <div class="head_box_left">
+                            <span id="choice-1-count" class = "choice_left_num"><%= (@first_choice_count*100)/@total_choice_count %><span class="small-font">%</span></span>
+                        </div>
+                        <div class="head_box_right">
+                            <span id="choice-2-count" class = "choice_right_num"><%= 100 - (@first_choice_count*100)/@total_choice_count %><span class="small-font">%</span></span>
+                        </div>
+                    <% end %>
+                </div>
+                <div class="middle_box">
+                    <p class="middle_chart_bar">
+                        <% if @total_choice_count == 0 %>
+                            <span class="left_percent" style="padding-left:0%;"></span> 
+                            <span class="right_percent" style="padding-right:0%;"></span>
+                        <% else %>
+                            <span class="left_percent" style="padding-left:<%= (@first_choice_count*100)/@total_choice_count %>%;"></span>
+                            <span class="right_percent" style="padding-right:<%= 100 - (@first_choice_count*100)/@total_choice_count %>%;"></span>
+                        <% end %>
+                    
+                    </p>
+                    <div class="mid_mid_box">
+                        <p class="middle_box_left">
+                            <%= @first_choice_count %>명
+                        </p>
+                        <p class="middle_box_right">
+                            <%= @second_choice_count %>명
+                        </p>
+                    </div>
+                </div>
+                <% @person = Array.new %>
+                <% @list1 = Array.new %>
+                <% @age_list1 = Array.new %>
+                <% @first_choices.each do |choice| %>
+                    <% @person.push(choice.user.gender) %>
+                    <% @man_num = @person.count("male") %>
+                    <% @woman_num = @person.count("female") %>
+                    
+                    <% if @man_num > @woman_num %>
+                        <% @first_gender_result = "남자" %>
+                    <% elsif @man_num < @woman_num %> 
+                        <% @first_gender_result = "여자" %>
+                    <% elsif @man_num == @woman_num %>
+                        <% @first_gender_result = '남/녀'%>
+                    <% end %>
+                    
+                    <% @string = choice.user.age.to_s %>
+                    <% @list1.push(@string[0]) %>
+                    
+                    
+                <% end %>
+                
+                <% @a10 = @list1.count("1") %>
+                    <% @a20 = @list1.count("2") %>
+                    <% @a30 = @list1.count("3") %>
+                    <% @a40 = @list1.count("4") %>
+                    <% @a50 = @list1.count("5") %>
+                    <% @age_list1.push(@a10) %>
+                    <% @age_list1.push(@a20) %>
+                    <% @age_list1.push(@a30) %>
+                    <% @age_list1.push(@a40) %>
+                    <% @age_list1.push(@a50) %>
+                    
+                    <% @maxNo1 = @age_list1[0]%>
+                    <% @maxIndex1 = 0%>
+                    <%for i in 1..5%>
+                        <%if @age_list1[i].to_i > @maxNo1%>
+                            <% @maxNo1 = @age_list1[i]%>
+                            <% @maxIndex1 = i%>
+                        <%end%>
+                    <%end%>
+                    
+                    <%for i in 1..5%>
+                        <%if @age_list1[i].to_i == @maxNo1 && i!= @maxIndex1%>
+                            <% @ageon1 = "off"%>
+                        <%else%>
+                            <% @ageon1 = "on"%>
+                        <%end%>
+                    <%end%>
+                    
+                <% @person2 = Array.new %>
+                <% @list2 = Array.new %>
+                
+                <% @age_list2 = Array.new %>
+                <% @second_choices.each do |choice| %>
+                    <% @person2.push(choice.user.gender) %>
+                    <% @man_num2 = @person2.count("male") %>
+                    <% @woman_num2 = @person2.count("female") %>
+                    <% if @man_num2 > @woman_num2 %>
+                        <% @second_gender_result = "남자" %>
+                    <% elsif @man_num2 < @woman_num2 %> 
+                        <% @second_gender_result = "여자" %>
+                    <% elsif @man_num2 == @woman_num2 %>
+                        <% @second_gender_result = '남/녀'%>
+                    <% end %>
+                    
+                    <% @string2 = choice.user.age.to_s %>
+                    <% @list2.push(@string2[0]) %>
+                    <% @a10_2 = @list2.count("1") %>
+                    <% @a20_2 = @list2.count("2") %>
+                    <% @a30_2 = @list2.count("3") %>
+                    <% @a40_2 = @list2.count("4") %>
+                    <% @a50_2 = @list2.count("5") %>
+                    <% @age_list2.push(@a10_2) %>
+                    <% @age_list2.push(@a20_2) %>
+                    <% @age_list2.push(@a30_2) %>
+                    <% @age_list2.push(@a40_2) %>
+                    <% @age_list2.push(@a50_2) %>
+                    
+                    <% @maxNo2 = @age_list2[0]%>
+                    <% @maxIndex2 = 0%>
+                    <%for i in 1..5%>
+                        <%if @age_list2[i].to_i > @maxNo2%>
+                            <% @maxNo2 = @age_list2[i]%>
+                            <% @maxIndex2 = i%>
+                        <%end%>
+                    <%end%>
+                    <%for i in 1..5%>
+                        <%if @age_list2[i].to_i == @maxNo2 && i!= @maxIndex2%>
+                            <% @ageon2 = "off"%>
+                        <%else%>
+                            <% @ageon2 = "on"%>
+                        <%end%>
+                    <%end%>
+                <% end %>
+                <div class="bottom_box">
+                    <div class="bottom_box_left">
+                        <% if @first_choice_count == 0 %>
+                        <% else %>
+                            <p class="info_hash_tag left">
+                            <span >
+                                <% if @ageon1 == "on" %>
+                                    <%= (@maxIndex1 +1) * 10 %>대</span>
+                    
+                                <% end %>
+                            </span>
+                            </p>
+                            <p class="info_hash_tag left"><span ><%= @first_gender_result %></span></p>
+                        <% end %>
+                    </div>
+                    <div class="bottom_box_right">
+                        <% if @second_choice_count == 0 %>
+                        <% elsif %>
+                            <p class="info_hash_tag right"><span >
+                                <% if @ageon2 == "on" %>
+                                    <%= (@maxIndex2 +1) * 10 %>대</span>
+                                <% end %>
+                                </p>
+                            <p class="info_hash_tag right"><span ><%= @second_gender_result %></span></p>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+            <div class="choice_third_box">
+                
+                <% if @post.image_2.present? %>
+                    <img src="<%= @post.image_2.choice.url %>" id="second_image" alt = "이미지 로딩중"></img>
+                <% else %>
+                    <img src="/noimage.jpg" id="first_image" style="width:300px; height:300px;" alt></img>
+                <% end %>
+                
+                <p class="choice_label_content" id="second-label-content"><%= @post.second_choice_label %></p>
+                <% if current_user %>
+                    <% vote_check = Vote.where(:post_id => @post.id, :user_id => current_user.id).count %>
+                    <% if vote_check == 0 %>
+                        <button id="choice-2-button" class="vote_button"><img src="/checked.png" class="checked_image"></img></button>
+                    <% else %>
+                    <% end %>
+                <% else %>            
+                    <button id="choice-2-button" class="vote_button"><img src="/checked.png" class="checked_image"></img></button>
+                <% end %>
+            </div>
+        </div>
+        
+        <hr>
+        <% if current_user %>
+            <% vote_check = Vote.where(:post_id => @post.id, :user_id => current_user.id).count %>
+            <% if vote_check == 0 %>
+                <p id="choice-result">투표 후 댓글 작성이 가능합니다.</p>
+                <div class="comment_input" style="display:none;" id="comment_input">
+                    <div class="create_comment">
+                        <p>댓글달기</p>
+                        <textarea class="form-control" rows="1" id="comment-text" style="border-radius:100px!important;" name="content"></textarea>
+                        <button class="comment-submit" id="comment-submit">작성</button>
+                    </div>
+                </div>
+            <% else %>
+                <% user_choice = Vote.where(:post_id => @post.id, :user_id => current_user.id).first.vote_choice %>
+                <% if user_choice == "1" %>
+                    <p id="choice-result"><%= @post.first_choice_label %>을 선택하셨습니다.</p>
+                <% else %>
+                    <p id="choice-result"><%= @post.second_choice_label %>을 선택하셨습니다.</p>
+                <% end %>
+                    <div class="comment_input" id="comment_input">
+                        <div class="create_comment">
+                            <textarea class="form-control" rows="1" id="comment-text"  style = "border-radius:100px!important;" name="content" placeholder="Write something here..."></textarea>
+                            <button class="comment-submit" id="comment-submit">작성</button>
+                        </div>
+                    </div>
+            <% end %>
+        <% else %>
+            <p id="choice-result">투표 후 댓글 작성이 가능합니다.</p>
+        <% end %>
+        <div>
+            <p class="comment_box_num" id="first-count-up">1번 댓글 수 : <%= @comments_1_count %></p>
+            <p class="comment_box_num" id="second-count-up">2번 댓글 수 : <%= @comments_2_count %></p>
+        </div>
+        <div class="comment-box text-center">
+            <div class="comment-box-wrapper">
+            
+            <div class="comment_box_1">
+                <% @comments_1.each do |c| %>
+                    <div class="comment_small_box" id="comment_<%=c.id %>">
+                        <div class="comment_small_box1">
+                            <span><img style="height: 50px; width:50px; border-radius:100px;;"src="<%=c.user.image %>"></img></span>
+                        </div>
+                        <div class="comment_small_box2">
+                            <div class="comment_middle_box">
+                                <div>
+                                    <span><%= c.user.name %></span>
+                                    <span style="color:#AAAAAA;"><%= c.created_at.strftime("%I:%M %P") %></span>
+                                    <span style="display:none;"><%=c.choice %></span>
+                                </div>
+                                <p><%=c.content %></p>
+                            </div>
+                        </div>
+                            <div class="comment_small_box3">
+                        <% if current_user %>
+                            <% if current_user.id == c.user_id %>
+                                <button id="<%=c.id %>" class="comment-edit"><img src="/edit.png"></img></button>
+                                <button id="<%=c.id %>" class="comment-destoy"><img src="/destroy.png"></img></button>
+                                <textarea class="form-control" rows="1" id="textarea-<%= c.id %>" style="border-radius:100px!important;" name="content" style="display:none;">
+                                    <%= c.content %>
+                                </textarea>
+                            <% end %>
+                        <% end %>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+            
+            <div class="comment_box_2">
+                <% @comments_2.each do |c| %>
+                    <div class="comment_small_box" id="comment_<%=c.id %>">
+                        <div class="comment_small_box1">
+                            <span><img style="height: 50px; width:50px; border-radius:100px;;"src="<%=c.user.image %>"></img></span>
+                        </div>
+                        <div class="comment_small_box2">
+                            <div class="comment_middle_box">
+                                <div>
+                                    <span><%= c.user.name %></span>
+                                    <span style="color:#AAAAAA;"><%= c.created_at.strftime("%I:%M %P") %></span>
+                                    <span style="display:none;"><%=c.choice %></span>
+                                </div>
+                                <p><%=c.content %></p>
+                            </div>
+                        </div>
+                            <div class="comment_small_box3">
+                        <% if current_user %>
+                            <% if current_user.id == c.user_id %>
+                                <button id="<%=c.id %>" class="comment-edit"><img src="/edit.png"></img></button>
+                                <button id="<%=c.id %>" class="comment-destoy"><img src="/destroy.png"></img></button>
+                                <textarea class="form-control" rows="1" id="textarea-<%= c.id %>"  style = "border-radius:100px!important;" name="content" style="display:none;">
+                                    <%= c.content %>
+                                </textarea>
+                            <% end %>
+                        <% end %>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+</div>
+<% else %>
+    <% if current_user %>
+        <div class="comment_input" id="comment_input">
+            <div class="create_comment">
+                <p>댓글달기</p>
+                <textarea class="form-control" rows="1" id="comment-text"  style = "border-radius:100px!important;" name="content"></textarea>
+                <button class="comment-submit" id="comment-submit">작성</button>
+            </div>
+        </div>
+    <% else %>
+        <div class="comment_input" id="comment_input">
+            <div class="create_comment">
+                <textarea class="form-control" rows="1" id="comment-text" style = "border-radius:100px!important;" name="content" placeholder="Write something here..."></textarea>
+                <button class="comment-submit" id="comment-submit">작성</button>
+            </div>
+        </div>
+    <% end %>
+    <div>
+        <p class="text-center" id="first-count-up">댓글 수 : <%= @comments_all_count %></p>
+    </div>
+        <div class="comment-box text-center">
+            <div class="comment-box-wrapper">
+            <div class="comment_box_1 free" style="width:100%; overflow-y: auto;">
+                
+                <% @comments_all.each do |c| %>
+                    <div class="comment_small_box" id="comment_<%=c.id %>">
+                        <div class="comment_small_box1">
+                            <span><img style="height: 50px; width:50px; border-radius:100px;;"src="<%=c.user.image %>"></img></span>
+                        </div>
+                        <div class="comment_small_box2">
+                            <div class="comment_middle_box">
+                                <div>
+                                    <span><%= c.user.name %></span>
+                                    <span style="color:#AAAAAA;"><%= c.created_at.strftime("%I:%M %P") %></span>
+                                </div>
+                                <p><%=c.content %></p>
+                            </div>
+                        </div>
+                            <div class="comment_small_box3">
+                                <% if current_user %>
+                                    <% if current_user.id == c.user_id %>
+                                        <button id="<%=c.id %>" class="comment-edit"><img src="/edit.png"></img></button>
+                                        <button id="<%=c.id %>" class="comment-destoy"><img src="/destroy.png"></img></button>
+                                        <textarea class="form-control" rows="1" id="textarea-<%= c.id %>"  style = "border-radius:100px!important;" name="content" style="display:none;">
+                                            <%= c.content %>
+                                        </textarea>
+                                    <% end %>
+                                <% end %>
+                            </div>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% end %>
+
+<!--페이스북 자바스크립트-->
+<!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
+  <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId            : '<%=ENV['FACEBOOK_CLIENT_ID']%>',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v2.10'
+    });
+    FB.AppEvents.logPageView();
+  };
+  
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    // js.src = "//connect.facebook.net/en_US/sdk.js";
+    js.src = "https://connect.facebook.net/ko_KR/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  
+ </script>
+
+<!--카카오톡 자바스크립트-->
+<script type='text/javascript'>
+    Kakao.init('<%= ENV["KAKAO_CLIENT_ID"] %>');
+    Kakao.Link.createTalkLinkButton({
+    container: '#kakao-link-btn',
+    label: 'Which One',
+    image: {
+        src: 'http://image.soribada.com/image/main/icon_logo.png',
+        width: '500',
+        height: '500'
+    },
+    webButton: {
+        text: '당신의 선택은??',
+        url: '<%= request.original_url %>' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
+    }
+});
+</script>
+
+
+<script>
+    $('#choice-1-button').click(function(){
+        var current_user_id = $("#hidden-user_id").val();
+       
+        if (current_user_id == "no_id"){
+            alert("로그인 후 투표가 가능합니다.");
+        }else{
+            var vote_choice = "1";
+            $.ajax({
+                method: "POST",
+                url: "/posts/<%=@post.id %>/"+current_user_id+"/"+vote_choice
+            });
+           console.log("1번을 선택하셨습니다.");
+           var choice1 = $('#first-lable-content').html();
+           $('#choice-2-button').remove();
+           $('#choice-1-button').remove();
+           $('#choice-result').replaceWith($('<p id="choice-result">'+choice1+'을 선택하셨습니다. </p>'));
+           $('#comment_input').css('display','block');
+           $('#hidden-choice-type').val("1");
+        }
+    });
+    $('#choice-2-button').click(function(){
+        var current_user_id = $("#hidden-user_id").val();
+        if (current_user_id == "no_id"){
+            alert("로그인 후 투표가 가능합니다.");
+        }else{
+            var vote_choice = "2";
+           $.ajax({
+                method: "POST",
+                url: "/posts/<%=@post.id %>/"+current_user_id+"/"+vote_choice
+           });
+           console.log("2번을 선택하셨습니다.");
+           var choice2 = $('#second-label-content').html();
+           $('#choice-1-button').remove();
+           $('#choice-2-button').remove();
+           $('#choice-result').replaceWith($('<p id="choice-result">'+choice2+'을 선택하셨습니다. </p>'));
+           $('#comment_input').css('display','block');
+           $('#hidden-choice-type').val("2");
+        }
+    });
+    
+</script>
+<script>
+    $('#comment-submit').click(function(){
+    var post_id = $("#hidden-id").val();
+    var user_id = $("#hidden-user_id").val();
+    var comment = $("#comment-text").val();
+    var choice = $('#hidden-choice-type').val();
+    
+    console.log(post_id);
+    console.log(user_id);
+    console.log(comment);
+    console.log(choice);
+    
+    $.ajax({
+      method: "POST",
+      data:{post_id: post_id, user_id:user_id, comment:comment, choice:choice},
+      dataType:"JSON",
+    //   url: "/posts/"+post_id+"/"+user_id+"/"+comment+"/"+choice
+      url:"/posts/"+post_id+"/comments"
+    })
+    $("#comment-text").val("");
+  });
+
+</script>
+<style>
+.right_percent{
+    line-height: 40.5px;
+    background-color: #90D9DA;
+    padding-top: 12px;
+    padding-bottom: 13px;
+}
+.left_percent{
+    height:100%;
+    background-color: #B38BFF;
+    padding-top: 12px;
+    padding-bottom: 13px;
+}
+.comment_box_num{
+    float:left;
+    width:50%;
+    text-align:center;
+    font-size:15px;
+    
+}
+
+.comment_box_1{
+    float:left;
+    width:50%;
+    border: 0.2px solid lightgray;
+}
+.comment_box_2{
+    float:right;
+    width:50%;
+    border: 0.2px solid lightgray;
+
+}
+.comment_small_box{
+    display:inline-flex;
+    width:90%;
+    justify-content:center;
+    align-content:center;
+    border-radius:8px;
+    margin: 5px 0px;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08);
+    border: solid 0.2px rgba(91, 91, 91, 0.2);
+}
+.comment_small_box1{
+    width:23%;
+    min-height:100px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.comment_small_box2{
+    width:62%;
+}
+.comment_middle_box{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+}
+.comment_middle_box > div{
+    width:100%;
+    margin:10px 0px;
+    text-align:left;
+}
+.comment_middle_box > p{
+    width:100%;
+    word-break:break-all;
+    text-align:left;
+}
+.comment_small_box3{
+    width:15%;
+    display:flex;
+    justify-content:flex-end;
+    align-items:flex-end;
+}
+
+.comment_small_box3 > button{
+    border:none;
+    background-color:transparent;
+    padding:3px;
+}
+.comment_small_box3 > button > img{
+    width:20px;
+    height:20px;
+}
+#first-image-opacity{
+  background-color: #000000;
+  opacity: 0.6;
+  z-index:2;
+}
+#second-image-opacity{
+  background-color: #000000;
+  opacity: 0.6;
+  z-index:2;
+}
+
+
+</style>
+<script>
+// 댓글 삭제
+    $(".comment-destoy").click(function(){
+        var comment_id = $(this).attr("id");
+        var post_id = $('#hidden-id').val();
+        var result = confirm('정말로 삭제 하시겠습니까?'); 
+        if(result) {
+            $.ajax({
+                method: "POST",
+                url: "/posts/"+post_id+"/"+comment_id+"/destroy"
+            });
+            $('#comment_'+comment_id).remove();
+        }
+    })
+// 댓글 수정
+$(".comment-edit").click(function(){
+        var comment_id = $(this).attr("id");
+        console.log(comment_id);
+        $("#textarea-"+comment_id).css("display","block");
+});
+
+</script>
+

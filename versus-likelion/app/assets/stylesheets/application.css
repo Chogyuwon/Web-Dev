@@ -1,0 +1,80 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ *= require social-share-button
+ */
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans');
+
+*{
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.NAVBAR {
+  width: 100%;
+  height: 230px;
+  background-color: #4270e4;
+}
+a.NAVREC{
+  text-decoration: none;
+}
+.NAVREC {
+  color:#54c8ff;
+  cursor: pointer;
+  margin-top:17px;
+  display:inline-block;
+  text-align:center;
+  width: 100px;
+  border-radius: 100px;
+  border: solid 2px #54c8ff;
+  margin-left:8px;
+  padding-top: 3px;
+  padding-bottom: 1px;
+}
+.NAVTEXT {
+  display:inline-block;
+  vertical-align:sub;
+  width: 86px;
+  height: 19px;
+  font-family: Lato;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  color: #54c8ff;
+}
+.NAVREC:hover{
+  color:white;
+  background-color:#54c8ff;
+  text-decoration: none;
+}
+.ONAIR {
+  margin-top:-150px;
+  margin-left:20%;
+  margin-right:20%;
+  width: 60%;
+  height: 300px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.09);
+}
+
+.nav-element-wrapper{
+    text-align:right;
+    padding-right:30px;
+}
+
+
+

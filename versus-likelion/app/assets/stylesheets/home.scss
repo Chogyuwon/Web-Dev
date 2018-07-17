@@ -1,0 +1,475 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+@import url(https://fonts.googleapis.com/css?family=Quicksand);
+@import url(https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+.ONAIR-Copy-5 {
+    width: 443px;
+    height: 423px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.18);
+}
+
+.ONAIR-Copy-6 {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width: 443px;
+    height: 254px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: #4270e4;
+}
+
+.ONAIR-Copy-7 {
+    margin: 0 auto;
+    margin-top:-60px;
+    width: 370px;
+    height: 190px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.18);
+}
+
+
+.VERSUS {
+    width: 272.5px;
+    height: 46px;
+    font-family: Futura;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+    z-index:1;
+}
+
+.NACREC-kakao {
+    width: 300px;
+    height: 50px;
+    border-radius: 100px;
+    background-color: #f8e81c;
+    border:solid 2px #f8e81c;
+    display:inline-flex;
+    justify-content:space-around;
+    align-items:center;
+    margin-top: 33px;
+    margin-left: 35px;
+    margin-bottom: 10px;
+}
+
+.NACREC-Copy-facebook {
+    width: 300px;
+    height: 50px;
+    border-radius: 100px;
+    background-color: #3a5897;
+    border: solid 2px #3a5897;
+    display:inline-flex;
+    justify-content:space-around;
+    align-items:center;
+    margin-top: 10px;
+    margin-left: 35px;
+    
+}
+
+.NAVTEXT-KAKAO {
+    width: 185px;
+    height: 24px;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 19px;
+    font-weight: 500;
+    text-align: center;
+    color: #644a4a;
+    margin-bottom:3px;
+    
+    &:hover{
+        text-decoration:none;
+        background-color: transparent;
+        color: #644a4a;
+    }
+}
+
+.NAVTEXT-FACEBOOK {
+    width: 185px;
+    height: 24px;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 19px;
+    font-weight: 500;
+    text-align: center;
+    color: #ffffff;
+    
+    
+    &:hover{
+        text-decoration:none;
+        background-color: transparent;
+        color: #ffffff;
+    }
+}
+
+.Kakao_Corp_wordmark{
+    width: 69px;
+    height: 16px;
+    margin-left:30px;
+}
+.facebook_Corp_wordmark{
+    width: 95px;
+    height: 20px;
+    margin-left:20px;
+}
+.modal-dialog-2{
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) !important
+}
+.close.modal_close{
+    display:block;
+    margin-right:13px;
+    margin-bottom:-40px;
+    font-size:33px;
+    color:white;
+    opacity:0.7;
+}
+
+@media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2) {    
+    .modal.fade.in{
+        margin:10px;
+    }
+    
+    .ONAIR-Copy-5 {
+        width: 350px;
+        height: 423px;
+        border-radius: 8px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.18);
+    }
+    
+    .ONAIR-Copy-6 {
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        width: 350px;
+        height: 254px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        background-color: #4270e4;
+    }
+    
+    .ONAIR-Copy-7 {
+        margin: 0 auto;
+        margin-top:-52px;
+        width: 320px;
+        height: 190px;
+        border-radius: 8px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.18);
+    }
+    .NACREC-kakao {
+    width: 300px;
+    height: 50px;
+    border-radius: 100px;
+    background-color: #f8e81c;
+    border:solid 2px #f8e81c;
+    display:inline-flex;
+    justify-content:space-around;
+    align-items:center;
+    margin-top: 33px;
+    margin-left: 12px;
+    margin-bottom: 10px;
+    }
+    
+    .NACREC-Copy-facebook {
+        width: 300px;
+        height: 50px;
+        border-radius: 100px;
+        background-color: #3a5897;
+        border: solid 2px #3a5897;
+        display:inline-flex;
+        justify-content:space-around;
+        align-items:center;
+        margin-top: 10px;
+        margin-left: 12px;
+        
+    }
+    .close.modal_close{
+        display:block;
+        margin-right:10px;
+        margin-bottom:-40px;
+        font-size:33px;
+        color:white;
+        opacity:0.7;
+    }
+}
+
+/* ===========
+   Search Styling */
+
+// $BorderColor: #cccccc !global;
+
+// .container {
+// 	margin-top:30px;
+// 	margin-bottom:30px;
+// }
+// .list {
+// 	list-style-type:none;
+// 	padding:0;
+// 	margin:0;
+// }
+.list-item{
+  list-style-type:none;
+  display:inline;
+  padding:0;
+}
+// .list-item {
+// 	padding-bottom:20px;
+// 	margin-bottom:20px;
+// 	border-bottom:1px solid $BorderColor;
+	
+// 	&:last-child {
+// 		border-bottom:0;
+// 		margin:0;
+// 	}
+// }
+.no-result {
+	display:none;
+}
+input.search{
+    outline: none;
+    border-left:0;
+    border-right:0;
+    border-top:0;
+    width: 300px;
+    border-color:gray;
+    
+}
+input.search:focus{
+   color: #4270e4 !important;
+ }
+ /* label underline focus color */
+ input.search:focus {
+   border-bottom: 2px solid #4270e4 !important;
+   box-shadow: 0 1px 0 0 #4270e4 !important
+ }
+
+/* 카드 CSS */
+.Mask {
+  display:inline-block;
+  width: 300px;
+  height: 330px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 15px 0 rgba(0,0,0,0.18);
+  margin: 0 auto;
+  margin: 13px;
+}
+.Mask-wrapper{
+text-align:left;
+width:990px;
+margin: 0 auto;
+}
+.Mask-container{
+    text-align:center;
+}
+.card-background{
+    height:215px;
+    background-color:#5d5c60;
+    border-radius: 8px 8px 0 0;
+    margin-top:-10px;
+    color: white;
+    text-align:center;
+    display: table-cell;
+    width: 300px;
+    vertical-align: middle;
+    font-size:35px;
+}
+
+/*mypage css*/
+
+.mypage-a {
+  text-decoration: none;
+  color: #3498db;
+}
+
+.card-j55 {
+  
+}
+
+.profile-user-page .img-user-profile {
+	margin: 0 auto;
+  text-align: center; 
+}
+.profile-user-page .img-user-profile .profile-bgHome {
+	border-bottom: .2em solid #f5f5f5;
+  width: 44.23em;
+  height: 16em;
+  }
+.profile-user-page .img-user-profile .avatar {
+  margin: 0 auto;
+  border-radius: 8em;
+  margin-top: 1em;
+  
+}
+.profile-user-page button {
+	position: absolute;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 7em; 
+  background: #3498db;
+  border: 1px solid #2487c9;
+  color: #fff;
+  outline: none;
+  border-radius: 0 .6em .6em 0;
+  padding: .80em;
+}
+
+.profile-user-page button:hover {
+  background: #51a7e0;
+  transition: background .2s ease-in-out;
+  border: 1px solid #2487c9;
+}
+.profile-user-page .user-profile-data, .profile-user-page .description-profile {
+  text-align: center;
+  padding: 0 1.5em; 
+}
+.profile-user-page .user-profile-data h1 {
+  font-size: 28px;    
+  font-family: "Lato", sans-serif;
+  margin-top: 0.35em;
+  color: #292f33;
+  margin-bottom: 5px;         
+}
+.profile-user-page .user-profile-data p {
+	font-family: "Lato", sans-serif;
+  color: #8899a6; 
+  font-size: 1.1em;
+  margin-top: 0;
+  margin-bottom: 30px; 
+}
+.profile-user-page .description-profile {
+  color: #75787b;
+  font-size: 0.98em; 
+}
+.profile-user-page .data-user {
+	font-family: "Quicksand", sans-serif;
+  margin-bottom: 0;
+  cursor: pointer;
+  padding: 0;
+  list-style: none;
+  display: table;
+  width: 100.15%; 
+}
+.profile-user-page .data-user li {
+  margin: 0;
+  padding: 0;
+  width: 33.33334%;
+  display: table-cell;
+  text-align: center;
+  font-size: 8px;
+  border-left: 0.1em solid transparent; 
+}
+.profile-user-page .data-user li:first-child {
+  border-left: 0; 
+}
+.profile-user-page .data-user li:first-child a {
+  border-bottom-left-radius: 0.3rem; 
+  }
+.profile-user-page .data-user li:last-child a {
+  border-bottom-right-radius: 0.3rem; 
+}
+.profile-user-page .data-user li a, .profile-user-page .data-user li strong {
+  display: block; 
+}
+.profile-user-page .data-user li a {
+  background-color: #fff;
+  border-top: 1px solid rgba(242,242,242,0.5);
+  border-bottom: .2em solid #f7f7f7;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4),0 1px 1px rgba(255,255,255,0.4);
+  padding: .93em 0;
+  color: #46494c; 
+}
+.profile-user-page .data-user li a strong, .profile-user-page .data-user li a span {
+  font-weight: 600;
+  line-height: 1; 
+}
+.profile-user-page .data-user li a strong {
+  font-size: 2em; 
+}
+.profile-user-page .data-user li a span {
+  color: #717a7e; 
+}
+.profile-user-page .data-user li a:hover {
+    text-decoration :none;
+    color: #000000; 
+  
+}
+.profile-user-page .data-user li a:hover span {
+    text-decoration :none;
+    color: #3498db;
+}
+
+.tabs{
+    padding-bottom: 18px;
+    border-radius: 8px;
+}
+.edit_info_title{
+    margin: 0 auto;
+    
+}
+.ONAIR.mobile{
+    display:none;
+}
+
+/* 모바일 카드 */
+@media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    #mobile-onair {
+        display:block;
+        width:300px;
+    }
+    div.ONAIR{
+        margin-top: -150px;
+        margin-left: 10%;
+        margin-right: 10%;
+        width: 80%;
+        height: 300px;
+        border-radius: 8px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.09);
+    }
+    #web-onair {
+        display:none;
+    }
+    div.Mask-wrapper {
+        text-align: left;
+        width:auto;
+        margin: 0 auto;
+    }
+    ul.list{
+        text-align: center;
+    }
+    span#search-icon {
+        margin-right:32px;
+    }
+    .title_name span{
+        text-align:left;
+    }
+    .profile-user-page .user-profile-data h1 {
+        margin-bottom:10px;
+    }
+    ul.data-user{
+        margin-top:50px;
+    }
+      
+}

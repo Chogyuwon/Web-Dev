@@ -1,0 +1,120 @@
+<% if @speakers.length != 0 %>
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Wrapper for slides -->
+    <% @first_id = @speakers[0].post_id %>
+    <% @speaker_first = Post.where(:id => @first_id).first %>
+    <% limit = @speakers.length; %>
+    <div class="carousel-inner">
+      <div class="item active">
+        <a href="/posts/<%=@first_id %>" class="speaker-link" style="text-decoration:none; color:black;">
+          <% if @speaker_first.first_choice_label && @speaker_first.second_choice_label != ""%>
+            <p class="left"><strong style="font-weight: 900;border-bottom: solid;"><%= @speaker_first.first_choice_label %></strong></p>
+            <p class="middle">VS</p>
+            <p class="right"><strong style="font-weight: 900;border-bottom: solid;" ><%= @speaker_first.second_choice_label %></strong></p>
+            <p class="speaker-title"><%= @speaker_first.title %></p>
+          <% else %>
+            <p class="speaker-title-only"><%= @speaker_first.title %></p>
+          <% end %>
+        </a>
+      </div>
+      <% if limit >1 %>
+        <% for i in 1...limit %>
+          <% @post_id = @speakers[i].post_id %>
+          <% @speaker = Post.where(:id => @post_id).first %>
+            <div class="item">
+              <a href="/posts/<%=@post_id %>" style="text-decoration:none; color:black;">
+                <% if @speaker.first_choice_label && @speaker.second_choice_label != "" %>
+                  <p class="left"><strong style="font-weight: 900;border-bottom: solid;"><%= @speaker.first_choice_label %></strong></p>
+                  <p class="middle">VS</p>
+                  <p class="right"><strong style="font-weight: 900;border-bottom: solid;"><%= @speaker.second_choice_label %></strong></p>
+                  <p class="speaker-title"><%= @speaker.title %></p>
+                <% else %>
+                  <p class="speaker-title-only"><%= @speaker.title %></p>
+                <% end %>
+              </a>
+            </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% end %>
+<style>
+  strong{
+    font-weight: 900;
+    border-bottom: solid;
+  }
+  .item:hover {
+    background-color:gray;
+    
+  }
+    .carousel-control.right{
+        background-image:none;
+    }
+    .carousel-control.left{
+        background-image:none;
+    }
+    @media only screen
+    and (min-device-width: 320px)
+    and (max-device-width: 568px)
+    and (-webkit-min-device-pixel-ratio: 2) {
+
+    .left{
+      font-size:40px;
+      text-align:center;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      margin-right:5%;
+      margin-left:5%;
+      margin-top: -40px;
+
+    }
+    .right{
+      font-size:40px;
+      text-align:center;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      margin-right:5%;
+      margin-left:5%;
+
+
+    }
+    .middle{
+      font-size:30px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .speaker-title{
+      font-size:30px;
+      text-align:center;
+      text-overflow: ellipsis;
+      padding-top:0px;
+      overflow: hidden;
+      margin-right:5%;
+      margin-left:5%;
+
+      }
+    .speaker-title-only{
+      font-size:30px;
+      text-align:center;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      }
+     .item{
+         margin:0;
+         padding-top:80px;
+     }
+     .item.active{
+         padding-top:80px;
+         padding-bottom:0;
+         margin:0;
+     }
+     .carousel-inner{
+         margin-bottom:40px;
+     }
+  }
+
+</style>
