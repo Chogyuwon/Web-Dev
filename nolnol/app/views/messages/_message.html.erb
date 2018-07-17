@@ -1,0 +1,40 @@
+<div class="card">
+  <div class="card-block">
+    <div class="row">
+      <div class="col-md-1">
+        <%= gravatar_for message.user, class:"img" %>
+      <span class="text-muted"><%= message.user.name %> / <%= message.created_at.strftime("%I:%M%p") %></span>
+      </div>
+      <div class="col-md-11">
+        <p class="card-text">
+          <br>
+          <%= message.body %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .card{
+    border:0 none;
+  }
+  .img{
+  float: none;
+  margin: 0 auto;
+  width: 40px;
+  height: 40px;
+  #circle
+  -webkit-clip-path: circle(100% at 50% 50%);
+  clip-path: circle(50% at 50% 50%);
+
+  }
+  .text-muted{
+    margin-left:10px;
+  }
+  .card-text{
+    font-size:14px;
+    display:inline-block;
+    vertical-align:top;
+    margin-left:60px;
+  }
+</style>

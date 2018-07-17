@@ -1,0 +1,2 @@
+module ErrorstationHelper
+end

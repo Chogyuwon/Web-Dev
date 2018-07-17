@@ -1,0 +1,62 @@
+<div class="container-fluid">
+  <%=render partial: "home/navbar" %>
+<div class="col-md-offset-4 col-md-4 " id="room-title">
+    <h2>놀놀채팅</h2>
+        <div class="chat_list">
+            <%= render @chat_rooms %>
+        </div>
+        <div class="button">
+            <% if user_signed_in? %>
+            <%= link_to '채팅방 만들기', new_chat_room_path, class: 'btn btn-primary' %>
+            <% end %>
+        </div>
+</div>
+</div>
+<div class="container">
+    <nav aria-label="Page navigation" class="main-pagination">
+      <ul class="pagination">
+        <li><%= will_paginate @users, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer, :class => "other_profile" %></li>
+      </ul>
+    </nav>
+</div>
+
+<style>
+h2{
+    display:2;
+  margin:30px 0px;
+  text-align:center;
+  color:#ee4065;
+}
+
+.lead{
+    float:right;
+    margin:20px;
+}
+ul{
+  list-style:none;
+  padding-left: 0;
+}
+
+.other_profile .page-link{
+  color: gray;
+  text-decoration:none;
+  border:0;
+  background-color:white;
+  font-size:22px;
+}
+
+.other_profile .active .page-link{
+  color:orange!important;
+  background-color:white;
+  border-bottom:2px solid orange;
+
+}
+.main-pagination{
+  text-align:center;
+}
+.btn-primary{
+  float: right;
+  background-color:#ee4065;
+  border-color: #ee4065;
+}
+</style>

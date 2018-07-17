@@ -1,0 +1,247 @@
+<div class="container-fluid">
+  <%= render partial: 'home/navbar' %>
+  <div class="container">
+
+    <h3>회원가입</h3>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+
+    <div class="field">
+      <%= f.text_field :user_name, :required => true ,:maxlength => 4 %>
+      <span class="light"></span>
+      <span class="underbar"></span>
+      <%= f.label :user_name, "이름", class:"lightlabel" %><br />
+    </div>
+    <div class="field">
+      <%= f.number_field :user_age, :required => true %>
+      <span class="light"></span>
+      <span class="underbar"></span>
+      <%= f.label :user_age, "나이", class:"lightlabel" %><br />
+    </div>
+    <div class="field">
+      <%= f.email_field :email, autofocus: true, :required => true %>
+      <span class="light"></span>
+      <span class="underbar"></span>
+      <%= f.label :email, "이메일", class:"lightlabel" %><br />
+    </div>
+
+    <div class="field" style="height:66px;">
+      <%= f.password_field :password, autocomplete: "off", :required => true%>
+      <span class="light"></span>
+      <span class="underbar"></span>
+      <%= f.label :password, "비밀번호(6자 이상)", class:"lightlabel" %>
+    </div>
+
+    <div class="field">
+      <%= f.password_field :password_confirmation, autocomplete: "off", :required => true %>
+      <span class="light"></span>
+      <span class="underbar"></span>
+      <%= f.label :password_confirmation, "비밀번호 확인", class:"lightlabel" %><br />
+    </div>
+
+      <div class="btn-group" data-toggle="buttons">
+        <p>성별<p>
+        <label class="radio_button"> 남자
+          <%= f.radio_button :user_gender, '남자', checked: true %>
+        </label>
+
+        <label class="radio_button active"> 여자
+          <%= f.radio_button :user_gender, '여자', checked: true %>
+        </label>
+      </div>
+
+      <br>
+      <br>
+
+      <div class="btn-group btn-group-vertical" data-toggle="buttons">
+        <p>구분<p>
+        <label class="radio_button"> 홍대생
+          <%= f.radio_button :user_state, '홍대생', checked: true %>
+        </label>
+        <label class="radio_button active"> 일반인
+          <%= f.radio_button :user_state, '일반인', checked: true %>
+        </label>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <%= f.label :image, "프로필 사진" %><br><br>
+      <div class="input-group image-preview">
+
+          <span class="input-group-btn">
+            <div class="btn btn-default image-preview-input">
+              <span class="glyphicon glyphicon-folder-open"></span>
+              <span class="image-preview-input-title">Browse</span>
+              <%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg', :class => "input-file-preview btn btn-success" ,id:"profle_image", :required => true %>
+            </div>
+          </span>
+          <input type="text" id="image-input-field" class="form-control image-preview-filename" disabled="disabled">
+      </div>
+      <br>
+      <br>
+      <br>
+      <div class="actions">
+        <%= f.submit "가입하기" %>
+      </div>
+        <% end %>
+</div>
+<style>
+.actions{
+   text-align:center;
+   margin-bottom:20px;
+}
+
+.image-preview-input {
+    position: relative;
+	overflow: hidden;
+	margin: 0px;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+.image-preview-input input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+.image-preview-input-title {
+    margin-left:2px;
+}
+.radio_button{
+   padding:10px 20px;
+    background-color:#ee4065;
+    font-size:15px;
+    border:0 none;
+    cursor:pointer;
+    color:white;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+input[type=submit] {
+    padding:10px 20px;
+    background-color:#ee4065;
+    font-size:15px;
+    border:0 none;
+    cursor:pointer;
+    color:white;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin:0px 10px;
+    margin-bottom: 10px;
+}
+
+
+h3 		 {
+  text-align:center;
+  margin-bottom:50px;
+  color:block;
+}
+/* form starting stylings ------------------------------- */
+.field			  {
+  position:relative;
+  margin-bottom:45px;
+}
+.field input 				{
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:100%;
+  border:none;
+  border-bottom:1px solid #ffdbdc;
+}
+input:focus 		{ outline:none; }
+
+/* LABEL ======================================= */
+.lightlabel 				 {
+  color:#999;
+  font-size:18px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+
+/* active state */
+input:focus ~ .lightlabel, input:valid ~ .lightlabel 		{
+  top:-20px;
+  font-size:14px;
+  color:#ee4065;
+}
+
+/* BOTTOM BARS ================================= */
+.underbar 	{ position:relative; display:block; width:100%; }
+.underbar:before, .underbar:after 	{
+  content:'';
+  height:2px;
+  width:0;
+  bottom:1px;
+  position:absolute;
+  background:#ee4065;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+.underbar:before {
+  left:50%;
+}
+.underbar:after {
+  right:50%;
+}
+p{
+  font-weight: bold;
+}
+/* active state */
+input:focus ~ .underbar:before, input:focus ~ .underbar:after {
+  width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.light {
+  position:absolute;
+  height:60%;
+  width:100px;
+  top:25%;
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+/* active state */
+input:focus ~ .light {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+</style>
+<script>
+window.onload = function() {
+  if(!window.location.hash) {
+      window.location = window.location + '#loaded';
+      window.location.reload(true);
+  }
+}
+$(document).on('turbolinks:load', function(){
+	$("#profle_image").on('change', function(){
+		if(window.FileReader){
+			var filename = $(this)[0].files[0].name;
+		} else {
+			var filename = $(this).val().split('/').pop().split('\\').pop();
+		}
+		$("#image-input-field").val(filename);
+	});
+});
+</script>

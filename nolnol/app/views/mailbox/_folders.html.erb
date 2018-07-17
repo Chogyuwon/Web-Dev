@@ -1,0 +1,30 @@
+<ul class="nav nav-pills nav-stacked">
+  <li class="<%= active_page(:inbox) %>">
+    <%= link_to mailbox_inbox_path do  %>
+        <span class="label label-danger pull-right" ><%=unread_messages_count%></span>
+        <em class="fa fa-inbox fa-lg"></em>
+        <span style="margin-left:30px;">받은 메시지</span>
+    <% end %>
+  </li>
+  <li class="<%= active_page(:sent) %>">
+    <%= link_to mailbox_sent_path do %>
+        <em class="fa fa-paper-plane-o fa-lg"></em>
+        <span style="margin-left:10px;">보낸 메시지</span>
+    <% end %>
+  </li>
+
+  <!--<li class="<%= active_page(:trash) %>">
+    <%= link_to mailbox_trash_path do %>
+        <em class="fa fa-trash-o fa-lg"></em>
+        <span>쓰레기통</span>
+    <% end %>
+  </li>-->
+</ul>
+<style>
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus{
+	background-color: #f45e62;
+}
+.nav>li>a{
+	color:#f45e62;
+}
+</style>

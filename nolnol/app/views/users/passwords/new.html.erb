@@ -1,0 +1,136 @@
+<div class="container">
+<h3>비밀번호 찾기</h3>
+
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="field">
+    <%= f.email_field :email, autofocus: true, :required => true %>
+    <span class="light"></span>
+    <span class="underbar"></span>
+    <%= f.label :email, class:"lightlabel" %><br />
+  </div>
+
+
+  <div class="actions">
+    <%= f.submit "???" %>
+  </div>
+    <% end %>
+
+<%= render "users/shared/links" %>
+
+</div>
+<style>
+  
+  
+input:focus {
+    outline:none;
+}
+
+input[type=submit] {
+    padding:20px 40px; 
+    background-color:#5264AE;
+    font-size:15px;
+    border:0 none;
+    cursor:pointer;
+    color:white;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+    margin:0px 10px;
+    float:right;
+}
+
+a{
+  float:left;
+  display:inline-block;
+  vertical-align:middle;
+}
+
+
+h3 		 {
+  text-align:center;
+  margin-bottom:50px;
+  color:gray;
+}
+/* form starting stylings ------------------------------- */
+.field			  {
+  position:relative;
+  margin-bottom:45px;
+}
+.field input 				{
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:100%;
+  border:none;
+  border-bottom:1px solid #757575;
+}
+input:focus 		{ outline:none; }
+
+/* LABEL ======================================= */
+.lightlabel 				 {
+  color:#999;
+  font-size:18px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+
+/* active state */
+input:focus ~ .lightlabel, input:valid ~ .lightlabel 		{
+  top:-20px;
+  font-size:14px;
+  color:#5264AE;
+}
+
+/* BOTTOM BARS ================================= */
+.underbar 	{ position:relative; display:block; width:100%; }
+.underbar:before, .underbar:after 	{
+  content:'';
+  height:2px;
+  width:0;
+  bottom:1px;
+  position:absolute;
+  background:#5264AE;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+.underbar:before {
+  left:50%;
+}
+.underbar:after {
+  right:50%;
+}
+
+/* active state */
+input:focus ~ .underbar:before, input:focus ~ .underbar:after {
+  width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.light {
+  position:absolute;
+  height:60%;
+  width:100px;
+  top:25%;
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+/* active state */
+input:focus ~ .light {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+
+
+</style>

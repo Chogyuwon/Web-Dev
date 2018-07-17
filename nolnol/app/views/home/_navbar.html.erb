@@ -1,0 +1,81 @@
+<nav class="navbar navbar-default text-center">
+	 <!-- Brand and toggle get grouped for better mobile display -->
+	 <div class="container">
+	 <div class="navbar-header">
+		 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+			 <span class="sr-only">Toggle navigation</span>
+			 <span class="icon-bar"></span>
+			 <span class="icon-bar"></span>
+			 <span class="icon-bar"></span>
+		 </button>
+		 <a href="/" id="logo"><%= image_tag("smlogo2.png", class:"logoimg") %>
+		 </a>
+	 </div>
+	 <!-- Collect the nav links, forms, and other content for toggling -->
+	 <div class="collapse navbar-collapse" id="navbar-collapse-1">
+		 <ul class="nav navbar-nav navbar-right">
+			 <li><a href="/">HOME</a></li>
+			 <li><a href="/info_page">유용한정보</a></li>
+			 <li><a href="/watching_people">사람구경</a></li>
+			 <li><a href="/boards">같이놀놀?</a></li>
+			 <li><a href="/jujum/index">홍대생 추천 술집!</a></li>
+			 <% if user_signed_in? %>
+				 <li><a href="/mailbox/inbox">메시지함</a></li>
+				 <li><a href="/my_profile">내프로필</a></li>
+				 <li><a href="/logout">로그아웃</a></li>
+			 <% else %>
+			 	<li><a href="/login">로그인</a></li>
+			 <% end %>
+		 </ul>
+	 </div><!-- /.navbar-collapse -->
+	</div>
+</nav><!-- /.navbar -->
+
+<style>
+.container-fluid{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.navbar-brand { position: relative; z-index: 2; }
+.navbar-nav.navbar-right .btn { position: relative; z-index: 2; padding: 4px 20px; margin: 10px auto; }
+.navbar .navbar-collapse { position: relative; }
+.navbar .nav-collapse { position: absolute; z-index: 1; top: 0; left: 0; right: 0; bottom: 0; margin: 0; padding-right: 120px; padding-left: 80px; width: 100%; }
+.navbar.navbar-default .nav-collapse { background-color: #0E2f44;}
+.navbar-default{
+	background-color: #ee4065;
+	border-color:#ee4065;
+}.navbar .nav-collapse .navbar-form { border-width: 0; box-shadow: none; }
+.nav-collapse>li { float: right; }
+.nav>li>a { text-align: center;}
+.navbar-default .navbar-nav > li > a {color:white;}
+.btn.btn-circle { border-radius: 50px;}
+.btn.btn-outline { background-color: transparent; }
+@media screen and (max-width: 767px) {
+    .navbar .nav-collapse { margin: 7.5px auto; padding: 0; }
+    .navbar .nav-collapse .navbar-form { margin: 0; }
+    .nav-collapse>li { float: none; }
+}
+a.navbar-brand{
+	margin-top: 2px;
+}
+.navbar.navbar-default{
+	 margin-bottom: 0px;
+}
+.navbar-brand {
+    position: absolute;
+    margin: auto;
+	color: white;
+}
+.navbar-toggle {
+    z-index:3;
+}
+.logoimg{
+	width:120px;
+	margin-top:2px;
+	margin-left:16%;
+}
+a#logo:hover{
+	background: transparent;
+}
+
+</style>

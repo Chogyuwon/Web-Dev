@@ -1,0 +1,156 @@
+<div class="container-fluid">
+  <%= render partial: 'home/navbar' %>
+<div class="container">
+<h3>로그인</h3>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="field">
+        <%= f.email_field :email, autofocus: true, :required => true %>
+        <span class="light"></span>
+        <span class="underbar"></span>
+        <%= f.label :email, "이메일", class:"lightlabel" %><br />
+      </div>
+
+      <div class="field">
+        <%= f.password_field :password, autocomplete: "off", :required => true %>
+        <span class="light"></span>
+        <span class="underbar"></span>
+        <%= f.label :password, "비밀번호", class:"lightlabel" %><br />
+      </div>
+      <div class="bottom">
+        <%= f.submit "로그인"  %>
+      <% end %>
+      <p class="question_line">놀놀 회원이 아니면</p>
+      <% if devise_mapping.registerable? && controller_name != 'registrations' %>
+        <a href="/agree" class="login">회원가입</a> <br />
+      <% end -%>
+          <br><br><br><br><br><br>
+          <br><br><br><br><br><br>
+      </div>
+</div>
+</div>
+<style>
+.question_line{
+  color: #ee4065;
+  font-szie: 14px;
+}
+
+a.login{
+  font-size: 17px;
+  margin-bottom: 40px;
+}
+
+input:focus {
+    outline:none;
+}
+
+input[type=submit] {
+    padding:10px 20px;
+    background-color:#ee4065;
+    font-size:15px;
+    border:0 none;
+    cursor:pointer;
+    color:white;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin:0px 10px;
+    float: right;
+}
+
+
+.login{
+  text-align:left;
+  display:inline-block;
+  vertical-align:middle;
+  float:left;
+}
+
+
+h3 		 {
+  font-size: 25px;
+  text-align:center;
+  margin:70px 0px;
+  color:#ee4065;
+}
+/* form starting stylings ------------------------------- */
+.field			  {
+  position:relative;
+  margin-bottom:45px;
+}
+.field input 				{
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:100%;
+  border:none;
+  border-bottom:1px solid #ffdbdc;
+}
+input:focus 		{ outline:none; }
+
+/* LABEL ======================================= */
+.lightlabel 				 {
+  color:#999;
+  font-size:18px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+
+/* active state */
+input:focus ~ .lightlabel, input:valid ~ .lightlabel 		{
+  top:-20px;
+  font-size:14px;
+  color:#ee4065;
+}
+
+/* BOTTOM BARS ================================= */
+.underbar 	{ position:relative; display:block; width:100%; }
+.underbar:before, .underbar:after 	{
+  content:'';
+  height:2px;
+  width:0;
+  bottom:1px;
+  position:absolute;
+  background:#ee4065;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+.underbar:before {
+  left:50%;
+}
+.underbar:after {
+  right:50%;
+}
+
+/* active state */
+input:focus ~ .underbar:before, input:focus ~ .underbar:after {
+  width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.light {
+  position:absolute;
+  height:60%;
+  width:100px;
+  top:25%;
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+/* active state */
+input:focus ~ .light {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+
+
+</style>

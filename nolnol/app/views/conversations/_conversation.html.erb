@@ -1,0 +1,55 @@
+<!-- 나에게 온 메시지 확인 인박스 -->
+<div class="media">
+  <div class="media-left">
+    <!-- 나에게 보낸사람 사진 링크 -->
+    <% if current_user.user_name == conversation.originator.user_name %>
+        <a href="#">
+          <%= image_tag("#{conversation.recipients[0].image}") %>
+        </a>
+        <% else %>
+         <a href="#">
+          <%= image_tag("#{conversation.recipients[1].image}") %>
+        </a>
+        <% end %>
+  </div>
+  <div class="media-body">
+
+   <!--수정된 부분 -->
+     <span class="timefor"><%=  conversation.messages.last.created_at.strftime("%I:%M%p") %></span>
+       <% if current_user.user_name == conversation.originator.user_name %>
+           <p style="text-align:left; font-weight:bold;">받는사람 : <%= conversation.recipients[0].user_name%></p><p style="text-align:left;">프로필 정보 : <%= conversation.recipients[0].user_gender + ","%><%= conversation.recipients[0].user_state + ","%><%= conversation.recipients[0].user_age%>살</p>
+       <% else %>
+       <p style="text-align:left; font-weight:bold;">보낸사람 : <%= conversation.recipients[1].user_name%></p><p style="text-align:left;">프로필 정보 : <%= conversation.recipients[1].user_gender + ","%><%= conversation.recipients[1].user_state + ","%><%= conversation.recipients[1].user_age%>살</p>
+     <% end %>
+     <p style="text-align:left;">제목: <%= conversation.subject %></p>
+     <p style="text-align:left;">내용: <%= truncate conversation.messages.last.body, length: 145 %></p>
+     <span class="sendbutton" style="margin-top:10px;"><%= link_to "대화 보기", conversation_path(conversation), class: "btn btn-warning btn-xs" %></span>
+  </div>
+</div>
+<hr>
+
+<style>
+.media-left,.media-body{
+  vertical-align: middle;
+}
+.media-body p{
+  margin-bottom: 0px;
+  width: 190px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.timefor{float:right; font-size:13px;}
+.sendbutton{float:right; z-index: 3;}
+.addinfo{float:left;font-size:13px; vertical-align: middle;}
+.addinfo2{float:left;font-size:14px;}
+.subfor{float:left;font-size:13px;}
+.media-left img {
+  float: none;
+  margin: 0 auto;
+  width: 80px;
+  height: 80px;
+  #circle
+  -webkit-clip-path: circle(33px at 50% 50%);
+  clip-path: circle(33px at 50% 50%);
+}
+</style>

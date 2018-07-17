@@ -1,0 +1,51 @@
+<div class="container">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Continent:</strong>
+  <%= @contry.continent %>
+</p>
+
+<p>
+  <strong>Cont image:</strong>
+  <%= @contry.cont_image %>
+</p>
+
+<p>
+  <strong>Cont name:</strong>
+  <%= @contry.cont_name %>
+</p>
+
+<p>
+  <strong>Center:</strong>
+  <%= @contry.center %>
+</p>
+
+<p>
+  <strong>Pop:</strong>
+  <%= @contry.pop %>
+</p>
+
+<p>
+  <strong>Area:</strong>
+  <%= @contry.area %>
+</p>
+
+<p>
+  <strong>Money:</strong>
+  <%= @contry.money %>
+</p>
+
+<p>
+  <strong>Lang:</strong>
+  <%= @contry.lang %>
+</p>
+
+<p>
+  <strong>Religion:</strong>
+  <%= @contry.religion %>
+</p>
+
+<%= link_to 'Edit', edit_contry_path(@contry) %> |
+<%= link_to 'Back', contries_path %>
+</div>

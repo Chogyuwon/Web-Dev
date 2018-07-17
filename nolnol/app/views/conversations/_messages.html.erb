@@ -1,0 +1,46 @@
+<!-- 답장하는 자리라능 -->
+<div id = "overflower">
+<% @receipts.each do |receipt| %>
+    <% message = receipt.message %>
+    <div class="media">
+      <div class="media-left" style="vertical-align:middle;">
+        <!-- '#'자리에 프로필페이지 링크 가능  -->
+        <a href="#">
+          <%= image_tag("#{message.sender.image}", :class => "img-circle imgcut media-object") %>
+        </a>
+      </div>
+
+      <div class="media-body">
+        <h4 class="media-heading" style="text-align:left; padding-top:0;">
+          <strong class="whoman"><%= message.sender.user_name %></strong>
+          <span class="addinfo"><%= message.sender.user_gender%></span>
+          <span class="addinfo"><%= message.sender.user_age%></span>
+         <!-- <small><b>제목: </b><%= message.subject %></small><br>-->
+          <small class="timefor"><%=  message.created_at.strftime("%I:%M%p") %></small>
+        </h4>
+        <br>
+        <%= message.body %>
+      </div>
+    </div>
+<% end %>
+</div>
+
+      <style>
+        .timefor{float:right; font-size:13px;}
+        .addinfo{font-size:13px;}
+        #overflower{max-height:220px;  overflow-y:scroll;}
+        .imgcut{
+            width:64px;
+            height:64px;
+        }
+
+      </style>
+
+<script>
+$(document).on('turbolinks:load', function() {
+$('#overflower').stop().animate({
+  scrollTop: $('#overflower')[0].scrollHeight
+}, 1);
+$("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
+});
+</script>

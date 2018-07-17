@@ -1,0 +1,2 @@
+module FollowlistHelper
+end

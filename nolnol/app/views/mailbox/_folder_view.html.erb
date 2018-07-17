@@ -1,0 +1,62 @@
+<div class="container-fluid">
+  <%= render partial: 'home/navbar' %>
+  <%= render partial: 'home/banner' %>
+ <br>
+ <div class="container">
+ <div class="row">
+  <div class="col-md-6">
+    <%= link_to "새 메시지", new_conversation_path, class: "btn btn-info" %>
+    <%= link_to "새로고침", mailbox_inbox_path, class: "btn btn-warning pull-right" %>
+  </div>
+  </div>
+  <br>
+</div>
+  <div class="col-md-4">
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+          <%= render 'mailbox/folders' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="overflower2">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <% if is_conversation %>
+          <%= render 'conversations/form' %>
+        <% else %>
+            <%= render partial: 'conversations/conversation', collection: messages %>
+            <% unless messages.any? %>
+              <%= image_tag "no_message.png",id:"no_mess" %>
+              <p style="color:#585858;">아직까지 받은 메시지가 없어요~ㅠ</p>
+            <% end %>
+        <% end %>
+      </div>
+    </div>
+    <br><br><br><br>
+    <br><br><br><br>
+  </div>
+</div>
+</div>
+</div>
+<br>
+<style>
+  .overflower2{max-height:400px;  overflow-y:scroll;}
+  .btn-info{
+    background-color: #ec8c8f;
+    border-color: #ec8c8f;
+  }
+  .btn-warning{
+    background-color: #ec8c8f;
+    border-color: #ec8c8f;
+  }
+  .panel-body{
+    text-align: center;
+  }
+  #no_mess{
+    width: 100px;
+    height: 100px;
+  }
+</style>

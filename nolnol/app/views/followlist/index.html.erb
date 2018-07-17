@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <%= render partial: 'home/navbar' %>
+  <%= render partial: 'home/banner' %>
+<div class="container">
+    <h3 align="center">당신이 마음에 들어요 :)</h3>
+    <h5 align="center">나에게 하트를 보낸 사람을 확인해보세요~</h5>
+    <h5 align="center">마음에 드는 사람이 있으면 먼저 연락해 보세요.</h5>
+    <br>
+    <%= link_to "메시지 보내러 가기", new_conversation_path, class: "btn btn-block btn-danger" %>
+    <br>
+       <div class="row" align="center">
+        <%if current_user.followers[0]!=nil%>
+            <% @followedall.each do |good| %>
+            <div class="col-lg-2 col-xs-6">
+                <%= image_tag("#{good.image}", :class => "img-circle") %>
+                <h4 style="margin-bottom:3px"><%= good.user_name %></h4><span><%= good.user_age %>살/<%= good.user_gender %>/<%= good.user_state %></span>
+                <br>
+            </div>
+            <%end%>
+        </div>
+    <% else %>
+  		<p>나에게 하트를 보낸 사람이 없습니다</p>
+  	<% end %>
+
+    </div>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br>
+<style>
+img.img-circle {
+  float: none;
+  margin: 0 auto;
+  width: 80px;
+  height: 80px;
+  #circle
+  -webkit-clip-path: circle(33px at 50% 50%);
+  clip-path: circle(33px at 50% 50%);
+}
+.btn-danger{
+  background-color: #ec8c8f;
+  border-color: #ec8c8f;
+}
+</style>

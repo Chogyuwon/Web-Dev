@@ -1,0 +1,25 @@
+<%= form_for :conversation, url: :conversations, html: { class: "" } do |f| %>
+
+    <div class="form-group">
+      <%= f.label :recipients,"받는사람(나에게 하트를 보낸 사람 중에서 선택!)" %>
+      <%= f.select(:recipients, current_user.followers.collect {|p| [ p.user_name, p.id ] }, {}, { multiple: true , class: "chosen-select form-control" })%>
+    </div>
+    <div class="form-group">
+      <%= f.label :subject,"대화 제목" %>
+      <%= f.text_field :subject, placeholder: "ex) 3:3 남자 세명이에요!", class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :message,"메시지 내용" %>
+      <%= f.text_area :body, class: 'form-control',placeholder: "ex) 안녕하세요 재미있게 놀아요!", rows: 4  %>
+    </div>
+
+    <%= f.submit "보내기", class: "btn btn-success btn-block" %>
+
+<% end %>
+<style>
+.btn.btn-success.btn-block{
+  background-color: #ee4065;
+  border-color: #ee4065;
+}
+
+</style>

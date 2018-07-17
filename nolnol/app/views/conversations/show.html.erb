@@ -1,0 +1,63 @@
+<%= render partial: 'home/navbar' %>
+<br>
+<div class="row">
+  <div class="col-md-6">
+    <%= link_to "새 메시지", new_conversation_path, class: "btn btn-info" %>
+    <%= link_to "새로고침", conversation_path, class: "btn btn-warning pull-right" %>
+  </div>
+  <br>
+</div>
+<div class="row">
+  <div class="spacer"></div>
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= render 'mailbox/folders' %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= render partial: 'messages' %>
+      </div>
+			<div class="panel-footer">
+        <!-- Reply Form -->
+        <%= form_for :message, url: reply_conversation_path(@conversation) do |f| %>
+            <div class="form-group">
+              <%= f.text_area :body, placeholder: "메시지를 보내주세요:)", rows: 4, class: "form-control" %>
+            </div>
+            <%= f.submit "보내기", class: 'btn btn-danger pull-right' %>
+        <% end %>
+
+    <% if @conversation.is_trashed?(current_user) %>
+        <%= link_to 'Untrash', untrash_conversation_path(@conversation), class: 'btn btn-info', method: :post %>
+    <% else %>
+        <%= link_to '대화 삭제하기', trash_conversation_path(@conversation), class: 'btn btn-danger', method: :post,
+                    data: {confirm: '진짜 다 날려버릴거에요?ㅠㅠㅠ'} %>
+    <% end %>
+
+        <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+</div>
+<br><br><br>
+<style>
+.btn-info{
+  background-color: #ec8c8f;
+  border-color: #ec8c8f;
+}
+.btn-warning{
+  background-color: #ec8c8f;
+  border-color: #ec8c8f;
+}
+.btn-danger{
+  background-color: #ee4065;
+  border-color: #ec4065;
+}
+.row{
+  margin-left: 5px;
+  margin-right: 15px;
+}
+</style>

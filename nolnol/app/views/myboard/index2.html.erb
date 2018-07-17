@@ -1,0 +1,66 @@
+<div class="container-fluid">
+<%=render partial:'home/navbar' %>
+<%=render partial:'home/banner' %>
+   <div class="container">
+   <div style="margin-top:10px;">
+         <h3 class="bigex3">내댓글 보기</h3>
+      <!--게시판가기-->
+      <p style = "text-align:right; margin-right:15px"> 
+   <%= link_to '게시판 가기', boards_path ,:class => "btn btn-default" %></p>
+      <!--내글 내용-->
+      
+      
+   <% @comments = Comment.all %>
+   <% @comments.each do|comments| %>
+    <% if comments.user_id == current_user.id %>
+      
+          <div class="media col-md-offset-4 col-md-4" style = "margin-top: 10px;">
+                <div class="board-content" style="border-top:1px solid #ffdbdc;">
+
+                   <p style="text-align:right; margin-top:2px; "><strong><%= comments.created_at.strftime("%m월%d일 %H:%M") %></strong> </p>
+                   <p style=""><%= comments.content %></p>
+                       
+                      <p style="text-align:right"><%= link_to "보러가기", board_path(:id => comments.user_id),:class => "btn btn-default",:style => "float:right" %></p>
+                </div>
+      </div>
+          <% end %>
+         <% end %>
+   </div>
+   </div>
+   </div>
+   <br> <br> <br> <br> <br> <br>
+   <br> <br> <br>
+<style>
+
+<style>
+
+.board-content p{
+   float:right;
+}
+.btn.btn-default{
+   background-color: #ee4065;
+   border-color: #ee4065;
+   color:white;
+   text-align:right;
+}
+
+strong{
+   font-weight: normal;
+   font-size:13px;
+   vertical-align: top;
+   margin-bottom:10px;
+}
+form.right{
+  margin-top: 15px;
+}
+.bigex3{
+  margin-top:0px;
+  padding-top:20px;
+  font-weight:bold;
+  text-align:center;
+  color:#ee4065;
+  margin-bottom:20px;
+}
+
+
+</style>

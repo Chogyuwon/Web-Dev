@@ -1,0 +1,65 @@
+<h3>Change your password</h3>
+
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+  <%= f.hidden_field :reset_password_token %>
+
+  <div class="field">
+    <%= f.password_field :password, autofocus: true, autocomplete: "off", :required => true %>
+    <span class="light"></span>
+    <span class="underbar"></span>
+    <%= f.label :password, "New password", class:"lightlabel" %><br />
+  </div>
+
+  <div class="field">
+    <%= f.password_field :password_confirmation, autocomplete: "off", :required => true %>
+    <span class="light"></span>
+    <span class="underbar"></span>
+    <%= f.label :password_confirmation, "Confirm new password", class:"lightlabel" %><br />
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Change my password" %>
+  </div>
+<% end %>
+
+<%= render "users/shared/links" %>
+<style>
+h3{
+  text-align:center;
+  color:gray;
+}
+
+.field {
+  margin:40px 0;
+  border-bottom: 1.5px solid #ea454b;
+  outline: none;
+}
+
+
+.field input{
+  border:0;
+  width: 100%;
+  box-shadow:none;
+  position: relative;
+  margin-bottom: 0.5em;
+  font-size: 16px;
+}
+
+input:focus {
+    outline:none;
+}
+input[type=submit] {
+    padding:20px 40px;
+    background-color:#ea454b;
+    font-size:15px;
+    border:0 none;
+    cursor:pointer;
+    color:white;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin:0px 10px;
+    float:right;
+}
+
+</style>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  jujum_name: MyString
+  table_count: 1
+  menu_image: MyString
+  jujum_image1: MyString
+  jujum_image2: MyString
+  user: one
+
+two:
+  jujum_name: MyString
+  table_count: 1
+  menu_image: MyString
+  jujum_image1: MyString
+  jujum_image2: MyString
+  user: two

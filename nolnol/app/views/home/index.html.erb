@@ -1,0 +1,110 @@
+<%= render partial: 'navbar' %>
+<section>
+<%= image_tag("mainlogo.png",:class => "styler", :alt => "logoimage") %>
+<br>
+<h5>하루마다 모든것이 리셋되고</h5>
+<h5>오직 축제기간 3일만 운영되는 서비스!</h5>
+<%= image_tag("smlogo.png",:class => "styler2", :alt => "logosubimage") %>
+<br>
+</section>
+<br>
+<div class="container">
+<div class="row">
+    <div class="col-xs-12 col-sm-12 ">
+      <%= image_tag("m1.png",:class => "img-circle", :alt => "main1") %>
+      <h3 class="bigex">축제를 위한 꿀팁!</h3>
+      <p class="smallex">홍대 화장실 위치 및</p>
+      <p class="smallex">홍대 근처의 술집 및 식당 정보까지</p>
+      <p class="smallex">유용한 정보를 얻어가세요!</p><br><br>
+    </div>
+    <div class="col-xs-12 col-sm-12 odder">
+      <%= image_tag("m2.png",:class => "img-circle", :alt => "main1") %>
+      <h3 class="bigex">사람구경</h3>
+      <p class="smallex">누가 여기 놀러왔을까요? :)</p>
+      <p class="smallex">회원가입한 회원들을 구경하고</p>
+      <p class="smallex">마음에 드는 사람에게 호감을 표시하세요!</p><br><br>
+    </div>      
+    <div class="col-xs-12 col-sm-12 ">
+          <%= image_tag("m4.png",:class => "img-circle", :alt => "main1") %>
+          <h3 class="bigex">다이렉트메시지</h3>
+          <p class="smallex">상대방에게 호감을 받으면</p>
+          <p class="smallex">호감을 준 사람에게 쪽지할 수 있어요</p>
+          <p class="smallex">멋진 프로필 사진을 설정하고</p>
+          <p class="smallex">호감을 받고 쪽지도 보내보세요!</p><br><br>
+    </div>   
+    <div class="col-xs-12 col-sm-12 odder laster">
+      <%= image_tag("m3.png",:class => "img-circle", :alt => "main1") %>
+      <h3 class="bigex">같이놀?놀!</h3>
+      <p class="smallex">축제 실시간 상황과 유용한 정보를</p>
+      <p class="smallex">사진과 짧은 설명만을 이용하여 공유하고</p>
+      <p class="smallex">홍대축제에서 같이 놀사람도 구해봐요!</p>
+      <p class="smallex">언제 어떻게 인연이 생길 줄 모르잖아요 :)</p>
+      <br><br>
+   </div>
+</div>
+</div>
+
+
+<style>
+	.styler{
+		    display: block;
+		    margin-top:50px;
+    	margin-left: auto;
+    	margin-right: auto;
+		width:280px;
+	}
+	.styler2{
+		    display: block;
+		    margin-top: 15px;
+    	margin-left: auto;
+    	margin-right: auto;
+		width:100px;
+	}	
+	section{
+	  background-color:#fcebea;
+	  padding:20px;
+	}
+	.odder{
+	  background-color:#fcf4f4;
+	}
+	h5{
+		text-align:center;
+		color:#776969;
+		font-weight:bold;
+	}
+	.titletx{
+		text-align:center;
+		font-size:28px;
+		color:#ee4065;
+		font-weight:bold;
+	}	
+	.img-circle{
+	  width:180px;
+	  display: block;
+	  margin-left: auto;
+	  margin-right: auto;
+	}
+	.part1{
+	  height:420px;
+	  background-color:#facdaf;
+	}
+	.bigex{
+	  margin-top:0px;
+	  font-weight:bold;
+	  text-align:center;
+	  color:#ee4065;
+	}
+		.smallex{
+	  margin-top:3px;
+	  margin-bottom:3px;
+	  text-align:center;
+	  color:gray;
+	}
+	.borderset{
+	  border-bottom:1px solid gray;
+	}
+	.laster{
+	  margin-bottom:0px;
+	}
+
+</style>

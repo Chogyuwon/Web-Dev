@@ -1,0 +1,259 @@
+<div class="container">
+      <div class="col-md-4 col-md-offset-4">
+            <!-- SIDEBAR USERPIC -->
+            <!-- Trigger the Modal -->
+         <div class="profile-usertitle">
+            <div class="profile-userpic" id="myImg">
+               <%= image_tag("#{current_user.image}")%>
+            </div>
+            <!-- The Modal -->
+            <div id="myModal" class="modal" >
+               <%= image_tag("#{current_user.image}") %>
+           <!-- The Close Button -->
+           <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+         </div>
+            <!-- END SIDEBAR USERPIC -->
+            <!-- SIDEBAR USER TITLE -->
+
+               <div class="profile-usertitle-name">
+                  <h4 style="font-size:20px; font-weight:bold; color: #ee6045; padding:10px 0px 0px 0px;"><%=current_user.user_name%></h4>
+                    <p style="text-align:center; color:brown;  font-size: 14px; margin-top:5px; margin-bottom:20px;"><%=current_user.email %></p>
+
+                  <div style="margin-top:10px;">
+                    <div class="profile_bg">
+                    <div class="profile_content_first">
+                    <span style="padding:40px;color:#ee4065; font-size: 14px;">Age</span>
+                    <span style="padding:40px;color:brown; font-size: 14px;"><%=current_user.user_age %>살</span>
+                    </div>
+                    <div class="profile_content">
+                    <span style="padding:30px; color:#ee4065; font-size: 14px;">Gender</span>
+                    <span style="padding:30px; color:brown; font-size: 14px;"><%=current_user.user_gender%></span>
+                    </div>
+
+                    <div class="profile_content_third">
+                    <span style="padding:30px; color:#ee4065; font-size: 14px;">State</span>
+                     <span style="padding:30px; color:brown; font-size: 14px;"><%=current_user.user_state %></span>
+                    </div>
+                    </div>
+                  </div>
+               </div>
+          </div>
+            </div>
+
+            <div class="profile-usermenu">
+               <ul class="nav">
+               <li>
+          <a href="/followlist" id="left-button" ><%= current_user.followers.length %> <i class="glyphicon glyphicon-heart-empty" style="font-weight:bold;"></i></a>
+               <a href="/profile_edit" id="right-button" > 정보 수정 </a>
+            </div>
+            <!-- END MENU -->
+      </div>
+</div>
+<style>
+.profile_bg{
+  background-color: rgba(255, 219, 220,0.5);
+  border-bottom-left-radius:15px;
+  border-bottom-right-radius:15px;
+}
+
+/* Profile sidebar */
+.profile-userpic{
+   text-align: center;
+}
+.profile-userpic img {
+  float: none;
+  margin: 0 auto;
+  width: 100%;
+  height: 240px;
+  #circle
+  -webkit-clip-path: circle(100px at 50% 50%);
+  clip-path: circle(100px at 50% 50%);
+}
+.profile_content_first{
+  padding-top:20px;
+}
+
+.profile_content_third{
+  padding-bottom:20px;
+  border-bottom-left-radius:15px;
+  border-bottom-right-radius:15px;
+}
+
+.profile-usertitle {
+  text-align: center;
+  border:1px solid rgb(230, 219, 219);
+  padding-top:10px;
+  margin: 20px 0px 0px 0px;
+  background-color: rgba(255, 219, 220,0.5);
+  border-radius: 15px;
+
+}
+
+.profile-usertitle-job{
+  text-transform: uppercase;
+  color: #5b9bd1;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.profile-userbuttons {
+  text-align:center;
+  margin-top:10px;
+}
+
+.profile-userbuttons .btn {
+  text-transform:uppercase;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 15px;
+  margin-right: 5px;
+}
+
+.profile-userbuttons .btn:last-child {
+  margin-right: 0px;
+}
+
+.profile-usermenu {
+  margin-top: 30px;
+  color:#ee6045;
+}
+
+.profile-usermenu ul li {
+  border-bottom: 1px solid #f0f4f7;
+}
+
+.profile-usermenu ul li:last-child {
+  border-bottom: none;
+}
+#right-button {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #ee4065;
+  float:right;
+  width:105px;
+  margin-bottom:20px;
+  margin-right: 16px;
+}
+#left-button {
+  color: white;
+  font-weight: bold;
+  font-size:16px;
+  background-color: #ee4065;
+  float:left;
+  width:105px;
+  margin-bottom:20px;
+  margin-left:16px;
+}
+}
+.profile-usermenu ul li.active {
+  border-bottom: none;
+}
+
+.profile-usermenu ul li.active a {
+  color: #5b9bd1;
+  background-color: #f6f9fb;
+  border-left: 2px solid #5b9bd1;
+  margin-left: -2px;
+}
+
+
+/* Profile Content */
+#myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#myImg:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+      text-align: center;
+    position: fixed; /* Stay in place */
+    z-index: 4; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content, #caption {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)}
+    to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+    .modal-content {
+        width: 100%;
+    }
+}
+</style>
+<script>
+   // Get the modal
+   var modal = document.getElementById('myModal');
+
+   // Get the image and insert it inside the modal - use its "alt" text as a caption
+   var img = document.getElementById('myImg');
+   var modalImg = document.getElementById("img01");
+   var captionText = document.getElementById("caption");
+   img.onclick = function(){
+      modal.style.display = "block";
+      modalImg.src = this.src;
+      captionText.innerHTML = this.alt;
+   }
+
+   // Get the <span> element that closes the modal
+   var span = document.getElementsByClassName("close")[0];
+
+   // When the user clicks on <span> (x), close the modal
+   span.onclick = function() {
+   modal.style.display = "none";
+   }
+</script>

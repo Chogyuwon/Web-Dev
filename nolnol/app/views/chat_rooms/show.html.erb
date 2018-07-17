@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <%=render partial: 'home/navbar' %>
+  <div class="container">
+<h3><%= @chat_room.title %></h3>
+
+<div id="messages" data-chat-room-id="<%= @chat_room.id %>">
+  <%= render @chat_room.messages %>
+</div>
+
+<%= form_for @message,url: "#" do |f| %>
+  <%= hidden_field_tag 'chat_room_id', @chat_room.id %>
+  <div class="form-group">
+    <%= f.text_area :body, class: 'form-control' %>
+  </div>
+<span class="actions">
+  <%= f.submit "보내기", data: {send: "message"},id:"submit-button",class:"btn btn-primary"%></span>
+  <% end %>
+  </div>
+</div>
+<style>
+#messages{
+  border:1px solid rgba(40, 34, 39, 0.25) ;
+}
+  .card-block{
+    outline:none;
+  }
+  h3 		 {
+  margin:30px 0px;
+  text-align:center;
+  color:#ee4065;
+}
+#submit-button{
+  margin-bottom:20px;
+}
+
+</style>

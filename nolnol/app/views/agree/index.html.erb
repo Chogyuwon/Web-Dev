@@ -1,0 +1,46 @@
+<div class="container-fluid">
+	<%= render partial:"home/navbar" %>
+	<div class="container">
+		<form id="registrationForm" class="form-horizontal">
+			<h3 style="text-align:center;">
+			<label>이용약관</label></h3>
+		    <div class="form-group">
+		        <div class="col-md-offset-4 col-md-4">
+		            <div style="border: 1px solid #e5e5e5; height: auto; padding: 10px;">
+									<p>1. '놀놀'은 2017년 홍익대학교 축제에 대한 다양한 정보 제공과 더불어, 축제에 참여하는 홍익대학교 학우 및 홍익대 축제를 방문해주시는 분들의 소통을 쉽게 만들어 축제를 한 층 재미있게 즐길 수 있도록 하기 위해 제작된 모바일 웹페이지 입니다.</p>
+														<p>2. 유저들간의 다이렉트 메시지 기능 및 여러 명이 동시에 사용할 수 있는 채팅 기능이 제공됩니다. </p>
+														<p>따라서 회원가입시 이름, 나이, 이메일, 성별, 홍대생 여부, 프로필사진 등을 제공 받고 있습니다.</p>
+														<p>3. 프로필사진은 가급적 본인 얼굴이 나온 정사각형 형태의 사진이면 좋습니다. 본인 사진이 아닌 사진도 허용되나, 상대방은 사진을 보고 매칭을 결정하게 된다는 것을 잊지 마세요! </p>
+														<p>4. 저희 '놀놀' 개발자 모두가 24시간 모니터링을 하고 있으며 불건전한 사진 및 채팅 내용들을 올리는 분들은 바로 계정삭제를 하게 되며 법적 조치가 가해질 수 있습니다. 이 부분 유의해주시길 바랍니다.</p>
+
+														<p>5. 그럴 일은 없겠지만 혹시나 저희 웹페이지를 통해 만나신 분과 생기는 2차적인 문제에 대해서는 저희가 책임을 지지 않습니다. 서로 서로 매너를 지키며 학교 내에서 진행되는 축제인 만큼 건전하고 즐거운 놀이문화를 만들어 주세요~!</p>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="form-group">
+		        <div class="col-md-offset-4 col-md-4">
+		            <div class="checkbox">
+		                <label>
+		                    <input type="checkbox" name="agree" value="agree"/> 약관에 동의합니다
+		                </label>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="form-group" style="text-align:center;">
+		        <div class="col-md-offset-4 col-md-4">
+		            <p><a href="/user/sign_up" class="btn btn-default" id="submit_prog">회원가입 하기</a></p>
+		        </div>
+		    </div>
+		</form>
+	</div>
+</div>
+<br>
+<script>
+$(document).on('turbolinks:load', function() {
+	var $submit = $("#submit_prog").hide(),
+			$cbs = $('input[name="agree"]').click(function() {
+					$submit.toggle( $cbs.is(":checked") );
+			});
+
+});
+</script>

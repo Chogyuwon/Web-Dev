@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Nolnol</title>
+    <%= csrf_meta_tags %>
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="놀놀 홍익대">
+    <meta property="og:url" content="http://www.nolandnol.com">
+    <meta property="og:description" content="홍대축제에서 짝도 찾고 정보도 얻자!">
+    <meta property="og:image" content="http://postfiles11.naver.net/MjAxNzA1MTZfMTE5/MDAxNDk0ODYxOTMwMjg0.cf6Dgj3nn2JwiJfMKNeV737LAfqyV0QXH4PWP1FtYZ4g.e0ZRwqSfvy12-taZ3TPVRHiG0PFIKMBQz5GrWE2gvVIg.PNG.dickings/thumb.png?type=w2">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= action_cable_meta_tag %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+  <footer>
+      <br>
+      <p>놀놀은 모바일에 최적화된 사이트입니다<p>
+      <p>Copyright © Likelion-Hongik, 2017</p>
+      <p>Contact : Hongik@likelion.org <p>
+      <p>Q&A : www.facebook.com/hongnol</p>
+      <p>위 사이트는 축제 기간이 끝나고 모두 삭제됩니다<p>  
+  </footer>
+</html>
+
+<style>
+footer{
+   color:white;
+   text-align:center;
+   background-color:#ee4065;
+   padding-top:5px;
+   padding-bottom:20px;
+   width:100%;
+}
+footer p{
+  font-size:12px;
+  margin-bottom:3px;
+}
+</style>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-99309793-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

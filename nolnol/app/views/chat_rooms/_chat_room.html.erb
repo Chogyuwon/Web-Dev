@@ -1,0 +1,39 @@
+<div class="chatting-room col-md-offset-4 col-md-4 well">
+<div class="media-left">
+<%=image_tag("#{chat_room.user.image}",class:"chatroom-image")%>
+</div>
+<div class="media-body">
+<p style="text-align:left; font-weight:bold;"><strong>방제목 : </strong><%= chat_room.title%></p>
+<p style="text-align:left; font-weight:bold;"><strong>개설자 :</strong> <%= chat_room.user.user_name%></p>
+<span style="text-align:left; font-weight:bold;"><strong>개설시간 :</strong> <%= chat_room.created_at.strftime("%I:%M %p")%></span>
+<span class="sendbutton pull-right" style="margin-top:-5px;">
+<%= link_to "입장하기", chat_room_path(chat_room), :class => "btn btn-warning btn-xs" %>
+</div>
+</div>
+<style>
+li.chat_list{
+
+}
+img.chatroom-image {
+	vertical-align: middle;
+  float: none;
+  margin: 0 auto;
+	margin-right: 10px;
+  width: 80px;
+  height: 80px;
+  #circle
+  -webkit-clip-path: circle(33px at 50% 50%);
+  clip-path: circle(33px at 50% 50%);
+
+}
+.chatting-room p{
+	vertical-align: middle;
+}
+.well{
+	background-color:#ffdbdc;
+	border-color:#ffdbdc;
+}
+strong{
+	color:#ee4065;
+}
+</style>

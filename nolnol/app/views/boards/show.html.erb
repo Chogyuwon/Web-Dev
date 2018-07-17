@@ -1,0 +1,324 @@
+<div class="container-fluid">
+   <%=render partial:'home/navbar' %>
+   <%=render partial:'home/banner' %>
+
+<div class="container">
+   <div class="board-pan">
+      <div class="media col-md-offset-4 col-md-4" style = "margin-top: 10px;">
+         <br>
+     <div class="media-left" >
+        <% if @board.anomy==true %>
+        <img src="https://s3.ap-northeast-2.amazonaws.com/nolnol/image_source/anomyuser.jpg" class="image_user2">
+	<% else%>
+         <%= image_tag("#{@board.user.image}", class:"image_user") %>
+         <%end%>    
+      </div>
+      <div class="media-body">
+	    <% if @board.anomy==true %>
+	    <p style="text-align:left; font-weight:bold;">익명</p>
+            <% else %>
+               <p style="text-align:left; font-weight:bold;">작성자 : <%= @board.user.user_name %></p><p style="text-align:left;">프로필정보 : <%= @board.user.user_gender + ","%><%=@board.user.user_state + ","%><%= @board.user.user_age%>살</p>
+               <%end%>   
+       <span class="like-button">
+          <% if current_user.id == @board.user.id%>
+            [내가 쓴 글]
+            <% end%>
+             <% if current_user.id != @board.user.id%>
+               <% if current_user.followings.include?(@board.user) %>
+                    <%= form_tag follow_path(@board.user.id), method: :delete, class: "right" do %>
+                      <button class="btn btn-warning  btn-xs">호감 취소할래요 <i class="glyphicon glyphicon-remove"></i></button>
+                  <% end %>
+
+                  <% else %>
+
+                  <%= form_tag follows_path, class:"right" do %>
+                   <input type="hidden" name="followed_id" value="<%= @board.user.id %>" />
+                   <button class="btn btn-danger btn-xs">쓰니가 마음에 들어요 <i class="glyphicon glyphicon-heart"></i></button>
+                    <% end %>
+
+              <% end %>
+          <% end %>
+        </span>               
+               </div>
+            </div>
+      <hr>
+            <div class="board-content">
+               <p style="font-size: 15px;
+               font-weight: bold;
+               font-family: helvetica;
+               margin-bottom: 5px;
+               color:rgb(74, 74, 74);">제목 : <%= @board.title %><strong><%= @board.created_at.strftime("%m월%d일 %H:%M") %></strong></p>
+               <p style="text-align:center;">
+               <%= image_tag("#{@board.board_image}", class:"image_board", style:"width: 100%;") %>
+               </p>
+               <div class="pull-right">
+               <%= link_to '게시판으로',"/boards", :class => "btn btn-default" %>
+               <% if can? :update, @board %>
+          <%= link_to '수정', edit_board_path(@board), :class => "btn btn-default" %>
+               <% end%>
+               <% if can? :delete, @board %>
+          <%= link_to '삭제', @board,:class => "btn btn-default", method: :delete, data: { confirm: '진심??지우면 다시 살릴 수 없습니다!' } %>
+               <%end%>
+               </div>
+               <br>
+            </div>
+            <br>
+      </div>
+      </div>
+      <hr>
+</div>
+
+<div class="container">
+   <% @comments = Comment.all %>
+   <% @comments.each do|c| %>
+   <% if c.board_id == @board.id %>
+     <% unless c.anomy == true %>
+   <div class="media col-md-offset-4 col-md-4 well" style = "margin-top: 10px;">
+      <br>
+      <div class="media-left" id = "myImg" >
+              <%= image_tag("#{c.user.image}", class:"image_user") %>
+      
+      <div id="myModal" class="modal">
+          <div class="cardbox">
+          <%= image_tag("#{c.user.image}", id:"modal_img") %>
+          <div class="board-info">
+             <p style="text-align:center; font-weight:bold; font-size:16px; margin-bottom:0px; color:#ee4065;"><%= c.user.user_name %>
+             <%if c.user.user_gender == "남자" %>
+             <%=image_tag("man.png",:class=>"gender") %>
+             <% else %>
+             <%=image_tag("woman.png",:class=>"gender") %>
+             <%end%>
+             </p><p style="text-align:center; font-weight:normal;font-size:13px;"><%= c.user.user_state + ", "%><%= c.user.user_age%>살</p>
+          </div>
+          <span class="like-button" >
+             <% if current_user.id != c.user_id%>
+               <% if current_user.followings.include?(c.user) %>
+                    <%= form_tag follow_path(c.user_id), method: :delete, class: "right" do %>
+                      <button class="btn pull-center btn-warning btn-xs">호감 취소할래요 <i class="glyphicon glyphicon-remove"></i></button>
+                  <% end %>
+
+                  <% else %>
+
+                  <%= form_tag follows_path, class:"right" do %>
+                   <input type="hidden" name="followed_id" value="<%= c.user_id %>"  />
+                   <button class="btn pull-center btn-danger btn-xs">마음에 들어요 <i class="glyphicon glyphicon-heart"></i></button>
+                    <% end %>
+                  <% end %>
+             <% end %>
+        </span>   
+           </div>
+           <!-- The Close Button -->
+           <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+      
+      </div>
+      
+      <div class="board-info">
+             <p style="text-align:center; font-weight:bold; font-size:12px; margin-bottom:-3px;"><%= c.user.user_name %>
+             <%if c.user.user_gender == "남자" %>
+             <%=image_tag("man.png",:class=>"gender") %>
+             <% else %>
+             <%=image_tag("woman.png",:class=>"gender") %>
+             <%end%>
+             </p><p style="text-align:center; font-weight:normal;font-size:8px;"><%= c.user.user_state + ", "%><%= c.user.user_age%>살</p>
+          </div>
+       </div>
+   <div class="media-body">
+   <p style=" text-align:right; margin-top:-5px; margin-bottom:10px; font-size: 8px; margin-right:20px;"><%= c.created_at.strftime("%m월%d일 %H:%M") %></p>
+      
+      <p class="meida-body-bottom"><%= c.content %></p>
+   </div>
+   </div>
+      
+
+ <% else %>
+   <div class=="board-info">
+      <div class="media col-md-offset-4 col-md-4 well" style = "margin-top: 10px;">
+    <div class="media-left" id = "myImg" style="padding-top:10px; vertical-align:middle" >
+       <img src="https://s3.ap-northeast-2.amazonaws.com/nolnol/image_source/anomyuser.jpg" class="image_user2">
+	<p style="text-align:center; font-weight:bold; font-size:12px; margin-bottom:5px;">익명</p>
+      </div>
+      <div class="media-body">
+        <p style=" text-align:right; margin-top:5px; margin-bottom:0px; font-size: 8px; margin-right:20px;"><%= c.created_at.strftime("%m월%d일 %H:%M") %></p>
+      <p class="meida-body-bottom"><%= c.content %></p>
+      </div>      
+      </div>
+  <% end%>
+ <% end %>
+ <% end %>
+     
+<div class="well" id="input-comment">
+  <form action="/boards/<%=@board.id%>" method="post">
+  <div class="form-group">
+      <input type="hidden" value="<%=@board.id%>" name="board_id">
+  </div>
+  <div class="form-group">
+    <input type="hidden" value="<%=current_user.id %>" name="user_id">
+  <label for="comment" style="margin-left:10px;margin-bottom:10px;">댓글달기</label>
+  <textarea class="form-control" rows="5" id="comment" name="content"></textarea>
+  </div>
+  <div class="form-group">  
+    <label for="anomy" class:"lightlabel2">익명 여부</label>
+    <input type="checkbox" name="anomy" class:"formlocate" id="checkbox_id">
+  </div>
+
+   <div style="text-align:right;">
+  <button type="submit" class="btn btn-default" id="submit-button">Submit</button>
+   </div>
+  </form>
+</div>
+</div>
+</div>
+<style>
+{
+    padding:100px;
+}
+.cardbox{
+    background-color:#ffdbdc;
+    padding:20px 0px;
+    border-radius:10px;
+    }
+.image_user{
+  float: none;
+  margin: 0 auto;
+  width: 60px;
+  height: 60px;
+  #circle
+  -webkit-clip-path: circle(30px at 50% 50%);
+  clip-path: circle(30px at 50% 50%);
+}
+.image_user2{
+  float: none;
+  margin: 0 auto;
+  width: 60px;
+  height: 60px;
+  #circle
+  -webkit-clip-path: circle(30px at 50% 50%);
+  clip-path: circle(30px at 50% 50%);
+}
+
+.board-info{
+   flex:1;
+}
+.media-body-bottom{
+   vertical-align: middle;
+}
+
+.board-pan{
+   background-color: rgba(255, 219, 220,0.5);
+   border-radius: 7px;
+}
+hr{
+   background-color: rgb(175, 170, 170);; height: 1px; border: 0;
+}
+.board-info p {
+   font-size: 15px;
+   font-weight: bold;
+   font-family: helvetica;
+   margin-bottom: 5px;
+   color:rgb(74, 74, 74);
+}
+.btn.btn-default{
+   background-color: #ee4065;
+   border-color: #ee4065;
+   color:white;
+}
+strong{
+   font-weight: normal;
+   color:rgb(74, 74, 74);
+   float:right;
+   font-size:12px;
+   vertical-align: top;
+}
+#input-comment{
+   padding: 2px;
+   background-color:rgba(255, 219, 220,0.5);
+}
+img.gender{
+   width: 10px;
+   heihg:10px;
+   vertical-align: top;
+   margin-left: 3px;
+}
+.media.col-md-offset-4.col-md-4.well{
+   padding:0px;
+   padding-left: 17px;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+      text-align: center;
+    position: fixed; /* Stay in place */
+    z-index: 4; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+#modal_img{
+    margin-bottom:20px;
+}
+</style>
+<script>
+$('input:checkbox[id="checkbox_id"]').is(":checked") == true
+$(window).scroll(function() {
+  sessionStorage.scrollTop = $(this).scrollTop();
+});
+
+$(document).ready(function() {
+  if (sessionStorage.scrollTop != "undefined") {
+    $(window).scrollTop(sessionStorage.scrollTop);
+  }
+});
+
+   // Get the modal
+   var modal = document.getElementById('myModal');
+    var images = document.getElementsByClassName("image_user");
+
+   // Get the image and insert it inside the modal - use its "alt" text as a caption
+   //var img = document.getElementById('myImg');
+  for(var i = 0; i < images.length; i++){
+    var img = images[i];
+     var modalImg = document.getElementById("modal_img");
+     img.onclick = function(){
+        modal.style.display = "block";
+        modalImg.src = this.src;
+       }
+    }
+
+   // Get the <span> element that closes the modal
+   var span = document.getElementsByClassName("close")[0];
+
+   // When the user clicks on <span> (x), close the modal
+   span.onclick = function() {
+   modal.style.display = "none";
+   }
+</script>

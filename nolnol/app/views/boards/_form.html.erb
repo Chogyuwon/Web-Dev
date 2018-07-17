@@ -1,0 +1,180 @@
+
+<%= form_for(board) do |f| %>
+  <% if board.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(board.errors.count, "error") %> prohibited this board from being saved:</h2>
+
+      <ul>
+      <% board.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+        <div class="checkforme">
+        <%= f.label :anomy, "익명 여부", class:"lightlabel2" %> 
+        <%= f.check_box :anomy,  { checked: false } , class:"formlocate" %> 
+        </div>
+  <div class="field" style="margin-top:20px;">
+    <%= f.text_field :title, :required => true %>
+    <span class="light"></span>
+    <span class="underbar"></span>
+    <%= f.label :title, "글제목", class:"lightlabel" %><br />
+  </div>
+
+  <div class="field">
+    <%= f.label :board_image, "글소개 이미지 첨부" %>
+    <div class="input-group image-preview" style="margin-bottom:50px;">
+
+        <span class="input-group-btn">
+          <div class="btn btn-default image-preview-input">
+            <span class="glyphicon glyphicon-folder-open"></span>
+            <span class="image-preview-input-title">Browse</span>
+            <%= f.file_field :board_image, accept: 'image/png,image/gif,image/jpeg', :class => "input-file-preview btn btn-success" ,id:"profle_image" %>
+          </div>
+        </span>
+        <input type="text" id="image-input-field" class="form-control image-preview-filename" disabled="disabled">
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+  </div>
+  <div class="actions" >
+    <%= f.submit "작성하기", class:"btn btn-default", style:"float:right;"%>
+  </div>
+  <%= link_to '게시판으로~', boards_path, class: "btn btn-default" %>
+<% end %>
+
+<style>
+
+.image-preview-input {
+    position: relative;
+	overflow: hidden;
+	margin: 0px;
+    color: #333;
+    background-color: #fff;
+    border-color: none;
+}
+.image-preview-input input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+.image-preview-input-title {
+    margin-left:2px;
+}
+
+/* form starting stylings ------------------------------- */
+.field			  {
+  position:relative;
+  margin-bottom:45px;
+}
+.field input 				{
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:100%;
+  border:none;
+  border-bottom:1px solid #ffdbdc;
+}
+input:focus 		{ outline:none; }
+
+/* LABEL ======================================= */
+.lightlabel 				 {
+  color:#999;
+  font-size:18px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+.lightlabel2{
+  font-size:16px;
+}
+.checkforme{
+  margin-top:20px;
+  margin-left:5px;
+  margin-bottom:0px;
+}
+/* active state */
+input:focus ~ .lightlabel, input:valid ~ .lightlabel 		{
+  top:-20px;
+  font-size:14px;
+  color:#ee4065;
+}
+
+/* BOTTOM BARS ================================= */
+.underbar 	{ position:relative; display:block; width:100%; }
+.underbar:before, .underbar:after 	{
+  content:'';
+  height:2px;
+  width:0;
+  bottom:1px;
+  position:absolute;
+  background:#ee4065;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+.underbar:before {
+  left:50%;
+}
+.underbar:after {
+  right:50%;
+}
+p{
+  font-weight: bold;
+}
+/* active state */
+input:focus ~ .underbar:before, input:focus ~ .underbar:after {
+  width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.light {
+  position:absolute;
+  height:60%;
+  width:100px;
+  top:25%;
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+/* active state */
+input:focus ~ .light {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+</style>
+<script>
+window.onload = function() {
+  if(!window.location.hash) {
+      window.location = window.location + '#loaded';
+      window.location.reload(true);
+  }
+}
+$(document).on('turbolinks:load', function(){
+	$("#profle_image").on('change', function(){
+		if(window.FileReader){
+			var filename = $(this)[0].files[0].name;
+		} else {
+			var filename = $(this).val().split('/').pop().split('\\').pop();
+		}
+		$("#image-input-field").val(filename);
+	});
+});
+</script>
+

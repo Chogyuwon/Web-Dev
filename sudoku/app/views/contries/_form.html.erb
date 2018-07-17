@@ -1,0 +1,64 @@
+<div class="container">
+<%= form_with(model: contry, local: true) do |form| %>
+  <% if contry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(contry.errors.count, "error") %> prohibited this contry from being saved:</h2>
+
+      <ul>
+      <% contry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :continent %>
+    <%= form.text_field :continent, id: :contry_continent %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cont_image %>
+    <%= form.text_field :cont_image, id: :contry_cont_image %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cont_name %>
+    <%= form.text_field :cont_name, id: :contry_cont_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :center %>
+    <%= form.text_field :center, id: :contry_center %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pop %>
+    <%= form.text_field :pop, id: :contry_pop %>
+  </div>
+
+  <div class="field">
+    <%= form.label :area %>
+    <%= form.text_field :area, id: :contry_area %>
+  </div>
+
+  <div class="field">
+    <%= form.label :money %>
+    <%= form.text_field :money, id: :contry_money %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lang %>
+    <%= form.text_field :lang, id: :contry_lang %>
+  </div>
+
+  <div class="field">
+    <%= form.label :religion %>
+    <%= form.text_field :religion, id: :contry_religion %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+</div>

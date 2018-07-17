@@ -1,0 +1,181 @@
+<div class="container-fluid">
+  <%= render partial:"home/navbar" %>
+<div class="container">
+<h3>회원정보 수정 </h3>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+    <div class="field">
+      <%= f.text_field :user_name, :required => true %>
+      <span class="light"></span>
+      <span class="underbar"></span>
+      <%= f.label :user_name, "이름", class:"lightlabel" %><br />
+    </div> 
+  <div class="field">
+    <%= f.email_field :email, autofocus: true, :required => true %>
+    <span class="light"></span>
+    <span class="underbar"></span>
+    <%= f.label :email, "이메일",class:"lightlabel" %><br />
+  </div>
+
+
+
+
+  <%= f.label :image, "프로필 사진 변경" %><br><br>
+  <div class="input-group image-preview">
+
+      <span class="input-group-btn">
+        <div class="btn btn-default image-preview-input">
+          <span class="glyphicon glyphicon-folder-open"></span>
+          <span class="image-preview-input-title">Browse</span>
+          <%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg', :class => "input-file-preview btn btn-success" ,id:"profle_image" %>
+        </div>
+      </span>
+      <input type="text" id="image-input-field" class="form-control image-preview-filename" disabled="disabled">
+  </div>
+<div class="bottom">
+    <%= link_to "뒤로 가기", :back %>
+    <!--<%= button_to "회원탈퇴", registration_path(resource_name), data: { confirm: "회원 탈퇴하시겠습니까?" }, method: :delete %>-->
+    <%= f.submit "수정완료" %>
+    <% end %>
+</div>
+</div>
+</div>
+<br><br><br>
+<style>
+
+
+input[type=submit] {
+    padding:10px 20px;
+    background-color:#ee4065;
+    font-size:15px;
+    border:0 none;
+    cursor:pointer;
+    color:white;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    float:right;
+}
+
+
+h3 		 {
+  text-align:center;
+  margin-bottom:50px;
+  color:gray;
+}
+/* form starting stylings ------------------------------- */
+.field			  {
+  position:relative;
+  margin-bottom:45px;
+}
+.field input 				{
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:100%;
+  border:none;
+  border-bottom:1px solid #757575;
+}
+input:focus 		{ outline:none; }
+
+/* LABEL ======================================= */
+.lightlabel 				 {
+  color:#999;
+  font-size:18px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+
+/* active state */
+input:focus ~ .lightlabel, input:valid ~ .lightlabel 		{
+  top:-20px;
+  font-size:14px;
+  color:#ee4065;
+}
+
+/* BOTTOM BARS ================================= */
+.underbar 	{ position:relative; display:block; width:100%; }
+.underbar:before, .underbar:after 	{
+  content:'';
+  height:2px;
+  width:0;
+  bottom:1px;
+  position:absolute;
+  background:#ee4065;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+.underbar:before {
+  left:50%;
+}
+.underbar:after {
+  right:50%;
+}
+
+/* active state */
+input:focus ~ .underbar:before, input:focus ~ .underbar:after {
+  width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.light {
+  position:absolute;
+  height:60%;
+  width:100px;
+  top:25%;
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+/* active state */
+input:focus ~ .light {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+.image-preview-input {
+    position: relative;
+	  overflow: hidden;
+	  margin: 0px;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    margin-bottom: 10px;
+}
+.image-preview-input input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+.image-preview-input-title {
+    margin-left:2px;
+}
+</style>
+<script>
+$(document).ready(function(){
+	$("#profle_image").on('change', function(){
+		if(window.FileReader){
+			var filename = $(this)[0].files[0].name;
+		} else {
+			var filename = $(this).val().split('/').pop().split('\\').pop();
+		}
+		$("#image-input-field").val(filename);
+	});
+});
+</script>
+
